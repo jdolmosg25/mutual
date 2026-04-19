@@ -104,158 +104,120 @@
     /* ============================================================ */
     /*  HERO                                                        */
     /* ============================================================ */
-    .hero {
+    /* --- HERO SECTION --- */
+.hero {
   position: relative;
   min-height: 100vh;
   display: flex;
   align-items: flex-end;
   color: var(--white);
   padding: 7rem var(--gutter) 4rem;
-  
-  /* Configuración de la animación */
   background-size: cover;
   background-position: center;
-  animation: slider 15s infinite; /* 15 segundos en total para el ciclo */
+  background-repeat: no-repeat;
+  transition: background-image 0.8s ease-in-out;
+  /* Imagen inicial */
+  background-image: linear-gradient(180deg, rgba(20,18,15,0.3) 0%, rgba(20,18,15,0.5) 100%), url('home01.jpg');
 }
 
-@keyframes slider {
-  0%, 100% {
-    background-image: linear-gradient(180deg, rgba(20,18,15,0.3) 0%, rgba(20,18,15,0.5) 100%), 
-    url('home01.jpg');
-  }
-  33% {
-    background-image: linear-gradient(180deg, rgba(20,18,15,0.3) 0%, rgba(20,18,15,0.5) 100%), 
-    url('home02.jpg');
-  }
-  66% {
-    background-image: linear-gradient(180deg, rgba(20,18,15,0.3) 0%, rgba(20,18,15,0.5) 100%), 
-    url('home03.jpg');
-  }
+/* Contenedor interno */
+.hero-inner {
+  max-width: var(--max-width);
+  width: 100%;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 2rem;
+  align-items: end;
+  z-index: 2;
 }
-<div class="slider-controls">
-  <button class="prev" onclick="moveSlider(-1)">&#10229;</button>
-  <button class="next" onclick="moveSlider(1)">&#10230;</button>
-</div>
-    .hero-inner {
-      max-width: var(--max-width);
-      width: 100%;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 2rem;
-      align-items: end;
-    }
 
-    .hero-meta {
-      font-size: 0.75rem;
-      letter-spacing: 0.28em;
-      text-transform: uppercase;
-      margin-bottom: 1.5rem;
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      opacity: 0;
-      animation: fadeUp 0.9s 0.3s ease-out forwards;
-    }
-    .hero-meta::before {
-      content: '';
-      display: inline-block;
-      width: 32px; height: 1px;
-      background: var(--white);
-      opacity: 0.7;
-    }
+/* Controles del Slider (Flechas) */
+.slider-controls {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  transform: translateY(-50%);
+  display: flex;
+  justify-content: space-between;
+  padding: 0 var(--gutter);
+  z-index: 10;
+  pointer-events: none; /* No estorba al resto de la página */
+}
 
-    .headline {
-      font-family: var(--font-serif);
-      font-weight: 400;
-      font-size: clamp(3rem, 8.5vw, 7.5rem);
-      line-height: 0.98;
-      letter-spacing: -0.01em;
-      max-width: 14ch;
-    }
-    .headline span {
-      display: block;
-      opacity: 0;
-      transform: translateY(40px);
-      animation: fadeUp 1s ease-out forwards;
-    }
-    .headline .line-1 { animation-delay: 0.45s; }
-    .headline .line-2 {
-      animation-delay: 0.65s;
-      font-style: italic;
-      padding-left: clamp(2rem, 7vw, 5rem);
-    }
+.slider-controls button {
+  background: none;
+  border: none;
+  color: var(--white);
+  font-size: 2.5rem;
+  cursor: pointer;
+  opacity: 0.3;
+  transition: all 0.3s ease;
+  pointer-events: auto; /* Habilita clics solo en botones */
+}
 
-    .hero-aside {
-      max-width: 280px;
-      text-align: right;
-      opacity: 0;
-      animation: fadeUp 1s 0.9s ease-out forwards;
-    }
-    .hero-aside p {
-      font-size: 0.92rem;
-      line-height: 1.6;
-      opacity: 0.9;
-    }
+.slider-controls button:hover {
+  opacity: 1;
+  transform: scale(1.1);
+}
 
-    /* Barra lateral con iconos de redes */
-    .social-rail {
-      position: absolute;
-      right: var(--gutter);
-      top: 50%;
-      transform: translateY(-50%);
-      z-index: 5;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 1.25rem;
-      opacity: 0;
-      animation: fadeIn 1s 1.2s ease-out forwards;
-    }
-    .social-rail::before,
-    .social-rail::after {
-      content: '';
-      width: 1px;
-      height: 50px;
-      background: rgba(255, 255, 255, 0.4);
-    }
-    .social-rail a {
-      color: var(--white);
-      opacity: 0.8;
-      transition: all 0.3s;
-      display: grid;
-      place-items: center;
-    }
-    .social-rail a:hover {
-      opacity: 1;
-      transform: scale(1.2);
-    }
-    .social-rail svg { width: 17px; height: 17px; }
+/* Títulos y Meta */
+.hero-meta {
+  font-size: 0.75rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.hero-meta::before {
+  content: '';
+  width: 32px; height: 1px;
+  background: var(--white);
+  opacity: 0.7;
+}
 
-    /* Scroll hint */
-    .scroll-hint {
-      position: absolute;
-      bottom: 2rem;
-      left: 50%;
-      transform: translateX(-50%);
-      font-size: 0.7rem;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-      color: var(--white);
-      opacity: 0.7;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.5rem;
-      animation: fadeIn 1s 1.4s ease-out both;
-    }
-    .scroll-hint .dot {
-      width: 1px;
-      height: 28px;
-      background: var(--white);
-      animation: lineGrow 2.2s ease-in-out infinite;
-      transform-origin: top;
-    }
+.headline {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: clamp(3rem, 8.5vw, 7.5rem);
+  line-height: 0.98;
+}
+
+.hero-aside {
+  max-width: 280px;
+  text-align: right;
+}
+
+/* Barra lateral Social */
+.social-rail {
+  position: absolute;
+  right: var(--gutter);
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+/* Scroll Hint */
+.scroll-hint {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  opacity: 0.7;
+}
 
     /* ============================================================ */
     /*  SECCIÓN INTRO / ESTUDIO                                     */
@@ -840,6 +802,39 @@
 
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
   </script>
+<script>
+  // 1. Lista de tus imágenes (Asegúrate de que los nombres coincidan con tus archivos en GitHub)
+  const images = ['home01.jpg', 'home02.jpg', 'home03.jpg']; 
+  let currentIndex = 0;
+  const hero = document.querySelector('.hero');
 
+  // 2. Función para cambiar la imagen de fondo
+  function updateHero() {
+    if(hero) {
+      hero.style.backgroundImage = `linear-gradient(180deg, rgba(20,18,15,0.3) 0%, rgba(20,18,15,0.5) 100%), url('${images[currentIndex]}')`;
+    }
+  }
+
+  // 3. Función para las flechas
+  function moveSlider(direction) {
+    currentIndex = (currentIndex + direction + images.length) % images.length;
+    updateHero();
+  }
+
+  // 4. Temporizador automático (6 segundos)
+  let timer = setInterval(() => moveSlider(1), 6000);
+
+  // 5. Pausa al pasar el mouse
+  if(hero) {
+    hero.addEventListener('mouseenter', () => clearInterval(timer));
+    hero.addEventListener('mouseleave', () => {
+      clearInterval(timer);
+      timer = setInterval(() => moveSlider(1), 6000);
+    });
+  }
+
+  // Cargar la primera imagen al abrir la página
+  window.addEventListener('DOMContentLoaded', updateHero);
+</script>
 </body>
 </html>
