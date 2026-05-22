@@ -18,7 +18,7 @@
       background-color: var(--bg);
       color: var(--white);
       font-family: var(--font-sans);
-      overflow: hidden; /* Evita scrolls innecesarios */
+      overflow: hidden;
     }
 
     .hero {
@@ -34,7 +34,7 @@
       transition: background-image 1s ease-in-out;
     }
 
-    /* Logo superior (apuntando afuera) */
+    /* Logo superior */
     .logo img {
       height: 40px;
       width: auto;
@@ -54,21 +54,21 @@
       font-weight: 400;
       line-height: 1.15;
       margin-bottom: 16px;
-      text-shadow: 0px 2px 15px rgba(0,0,0,0.3);
+      text-shadow: 0px 2px 15px rgba(0,0,0,0.4);
     }
 
     p {
-      font-family: var(--font-sans);
+      font-family: var(--font-sans); /* Forzado Montserrat */
       font-weight: 400;
       font-size: clamp(0.75rem, 1.1vw, 0.85rem);
       letter-spacing: 0.18em;
       text-transform: uppercase;
       opacity: 0.85;
       line-height: 1.6;
-      text-shadow: 0px 2px 10px rgba(0,0,0,0.3);
+      text-shadow: 0px 2px 10px rgba(0,0,0,0.4);
     }
 
-    /* Controles discretos del Slider */
+    /* Controles del Slider */
     .slider-controls {
       position: absolute;
       top: 50%;
@@ -97,7 +97,7 @@
       transform: scale(1.1);
     }
 
-    /* Redes Flotantes (Derecha vertical) */
+    /* Redes Flotantes (Efecto elegante e inserción de Montserrat) */
     .social-links {
       position: absolute;
       right: 40px;
@@ -105,25 +105,31 @@
       transform: translateY(-50%);
       display: flex;
       flex-direction: column;
-      gap: 24px;
+      gap: 28px;
       z-index: 5;
     }
 
     .social-links a {
       color: var(--white);
       text-decoration: none;
-      font-family: var(--font-sans);
-      font-size: 0.75rem;
+      font-family: var(--font-sans); /* OBLIGA A MONTSERRAT */
+      font-size: 0.72rem;
       font-weight: 400;
-      letter-spacing: 0.15em;
+      letter-spacing: 0.2em;
       text-transform: uppercase;
-      opacity: 0.4;
-      transition: opacity 0.3s;
+      opacity: 0.5;
+      transition: all 0.4s ease;
       writing-mode: vertical-rl;
-      text-shadow: 0px 2px 8px rgba(0,0,0,0.3);
+      text-shadow: 0px 2px 8px rgba(0,0,0,0.4);
+      position: relative;
+      padding: 5px 0;
     }
 
-    .social-links a:hover { opacity: 1; }
+    /* Efecto de línea sutil al pasar el mouse */
+    .social-links a:hover { 
+      opacity: 1;
+      transform: translateY(-3px); /* Pequeño desplazamiento hacia arriba */
+    }
 
     /* Info de contacto (Inferior Derecha) */
     .contact-info {
@@ -138,19 +144,70 @@
       display: block;
       color: var(--white);
       text-decoration: none;
-      font-family: var(--font-sans);
-      font-size: 0.8rem;
+      font-family: var(--font-sans); /* OBLIGA A MONTSERRAT */
+      font-size: 0.78rem;
       font-weight: 400;
       letter-spacing: 0.05em;
-      opacity: 0.5;
-      margin-top: 6px;
-      transition: opacity 0.3s;
-      text-shadow: 0px 2px 8px rgba(0,0,0,0.3);
+      opacity: 0.6;
+      margin-top: 8px;
+      transition: opacity 0.3s, transform 0.3s;
+      text-shadow: 0px 2px 8px rgba(0,0,0,0.4);
     }
 
-    .contact-info a:hover { opacity: 1; }
+    .contact-info a:hover { 
+      opacity: 1;
+      transform: translateX(-3px);
+    }
+
+    /* ==========================================
+       AJUSTES EXCLUSIVOS PARA MÓVILES (RESPONSIVE)
+       ========================================== */
+    @media (max-width: 768px) {
+      .hero {
+        padding: 30px 24px;
+        /* Prioriza el encuadre central en pantallas verticales */
+        background-position: center center; 
+      }
+
+      .hero-content {
+        margin-bottom: 140px; /* Deja espacio libre abajo para los links */
+      }
+
+      /* Reacomodamos las redes para que no estorben verticalmente */
+      .social-links {
+        position: absolute;
+        left: 24px;
+        bottom: 40px;
+        top: auto;
+        transform: none;
+        flex-direction: row; /* Pasan a estar horizontales abajo */
+        gap: 16px;
+        width: calc(100% - 48px);
+      }
+
+      .social-links a {
+        writing-mode: horizontal-tb; /* Texto normal horizontal */
+        font-size: 0.68rem;
+        letter-spacing: 0.12em;
+      }
+
+      .contact-info {
+        left: 24px;
+        bottom: 85px; /* Se ubica perfectamente arriba de las redes */
+        text-align: left;
+      }
+
+      .contact-info a {
+        font-size: 0.75rem;
+      }
+
+      /* Ocultamos las flechas en mobile ya que la gente pasa las fotos deslizando o con botones nativos */
+      .slider-controls {
+        display: none;
+      }
+    }
   </style>
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet" />
 </head>
 <body>
 
@@ -183,7 +240,6 @@
   </section>
 
   <script>
-    // Nombres planos porque están afuera sueltos
     const images = [
       'mutual03.jpg',
       'mutual01.jpg',
@@ -210,20 +266,16 @@
       updateHero();
     }
 
-    // Automático cada 3 segundos
     let timer = setInterval(() => moveSlider(1), 3000);
 
-    // Pausa con mouse
     hero.addEventListener('mouseenter', () => clearInterval(timer));
     hero.addEventListener('mouseleave', () => timer = setInterval(() => moveSlider(1), 3000));
 
-    // Pasar con teclado
     document.addEventListener('keydown', (event) => {
       if (event.key === 'ArrowRight') moveSlider(1);
       else if (event.key === 'ArrowLeft') moveSlider(-1);
     });
 
-    // Cargar inmediatamente
     updateHero();
   </script>
 </body>
