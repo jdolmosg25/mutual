@@ -255,8 +255,8 @@
     </div>
 
     <div class="hero-content">
-      <h1>Productora audiovisual y fotografía especializada.</h1>
-      <p>Desarrollo de proyectos visuales desde el rigor técnico y la narrativa documental. Dirigidos por Juan de Mutual.</p>
+      <h1></h1>
+      <p></p>
     </div>
 
     <div class="mobile-social">
@@ -301,6 +301,13 @@
       'mutual09_mv.jpg'
     ]; 
     
+    // Precarga todas las imágenes para evitar el flash negro
+    const allImages = [...desktopImages, ...mobileImages];
+    allImages.forEach(src => {
+      const img = new Image();
+      img.src = src;
+    });
+
     let currentIndex = 0;
     
     function updateHero() {
