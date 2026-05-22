@@ -18,7 +18,7 @@
       background-color: var(--bg);
       color: var(--white);
       font-family: var(--font-sans);
-      overflow: hidden; /* Evita scrolls innecesarios en la entrega inicial */
+      overflow: hidden; /* Evita scrolls innecesarios */
     }
 
     .hero {
@@ -34,14 +34,14 @@
       transition: background-image 1s ease-in-out;
     }
 
-    /* Logo superior */
+    /* Logo superior (apuntando afuera) */
     .logo img {
       height: 40px;
       width: auto;
       display: block;
     }
 
-    /* Contenido inferior izquierdo (Copy pulido y diagramado) */
+    /* Contenido inferior izquierdo (Copy) */
     .hero-content {
       max-width: 750px;
       z-index: 2;
@@ -68,7 +68,7 @@
       text-shadow: 0px 2px 10px rgba(0,0,0,0.3);
     }
 
-    /* Controles discretos del Slider (Flechas finas laterales) */
+    /* Controles discretos del Slider */
     .slider-controls {
       position: absolute;
       top: 50%;
@@ -97,7 +97,7 @@
       transform: scale(1.1);
     }
 
-    /* Redes Flotantes (Derecha en formato vertical elegante) */
+    /* Redes Flotantes (Derecha vertical) */
     .social-links {
       position: absolute;
       right: 40px;
@@ -119,3 +119,112 @@
       text-transform: uppercase;
       opacity: 0.4;
       transition: opacity 0.3s;
+      writing-mode: vertical-rl;
+      text-shadow: 0px 2px 8px rgba(0,0,0,0.3);
+    }
+
+    .social-links a:hover { opacity: 1; }
+
+    /* Info de contacto (Inferior Derecha) */
+    .contact-info {
+      position: absolute;
+      right: 40px;
+      bottom: 40px;
+      text-align: right;
+      z-index: 5;
+    }
+
+    .contact-info a {
+      display: block;
+      color: var(--white);
+      text-decoration: none;
+      font-family: var(--font-sans);
+      font-size: 0.8rem;
+      font-weight: 400;
+      letter-spacing: 0.05em;
+      opacity: 0.5;
+      margin-top: 6px;
+      transition: opacity 0.3s;
+      text-shadow: 0px 2px 8px rgba(0,0,0,0.3);
+    }
+
+    .contact-info a:hover { opacity: 1; }
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <section class="hero" id="hero">
+    <div class="logo">
+      <img src="logo.png" alt="Mutual">
+    </div>
+
+    <div class="hero-content">
+      <h1>Productora audiovisual y fotografía especializada.</h1>
+      <p>Desarrollo de proyectos visuales desde el rigor técnico y la narrativa documental.</p>
+    </div>
+
+    <div class="social-links">
+      <a href="TU_LINK_DE_BEHANCE" target="_blank">Behance</a>
+      <a href="TU_LINK_DE_VIMEO" target="_blank">Vimeo</a>
+      <a href="TU_LINK_DE_PIXIESET" target="_blank">Pixieset</a>
+      <a href="TU_LINK_DE_INSTAGRAM" target="_blank">Instagram</a>
+    </div>
+
+    <div class="contact-info">
+      <a href="mailto:contacto@mutualmediagroup.com">contacto@mutualmediagroup.com</a>
+      <a href="https://wa.me/573000000000" target="_blank">+57 300 123 4567</a>
+    </div>
+
+    <div class="slider-controls">
+      <button onclick="moveSlider(-1)">&#10229;</button>
+      <button onclick="moveSlider(1)">&#10230;</button>
+    </div>
+  </section>
+
+  <script>
+    // Nombres planos porque están afuera sueltos
+    const images = [
+      'mutual03.jpg',
+      'mutual01.jpg',
+      'mutual02.jpg',
+      'mutual04.jpg',
+      'mutual05.jpg',
+      'mutual06.jpg',
+      'mutual07.jpg',
+      'mutual08.jpg',
+      'mutual09.jpg'
+    ]; 
+    
+    let currentIndex = 0;
+    const hero = document.getElementById('hero');
+
+    function updateHero() {
+      if(hero) {
+        hero.style.backgroundImage = `linear-gradient(180deg, rgba(0,0,0,0.0) 0%, rgba(0,0,0,0.0) 100%), url('${images[currentIndex]}')`;
+      }
+    }
+
+    function moveSlider(direction) {
+      currentIndex = (currentIndex + direction + images.length) % images.length;
+      updateHero();
+    }
+
+    // Automático cada 3 segundos
+    let timer = setInterval(() => moveSlider(1), 3000);
+
+    // Pausa con mouse
+    hero.addEventListener('mouseenter', () => clearInterval(timer));
+    hero.addEventListener('mouseleave', () => timer = setInterval(() => moveSlider(1), 3000));
+
+    // Pasar con teclado
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'ArrowRight') moveSlider(1);
+      else if (event.key === 'ArrowLeft') moveSlider(-1);
+    });
+
+    // Cargar inmediatamente
+    updateHero();
+  </script>
+</body>
+</html>
