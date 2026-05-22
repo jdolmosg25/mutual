@@ -172,8 +172,7 @@
       }
 
       .header-top .social-links {
-        display: flex;
-        gap: 18px;
+        display: none;
       }
 
       .hero-content {
@@ -208,25 +207,24 @@
 
       .mobile-social {
         display: flex;
-        position: absolute;
-        left: 30px;
-        right: auto;
-        bottom: 40px;
-        top: auto;
-        transform: none;
+        flex-direction: column;
+        position: fixed;
+        left: -30px;
+        top: 50%;
+        transform: translateY(-50%) rotate(-90deg);
         gap: 24px;
-        width: auto;
-        z-index: 5;
+        z-index: 10;
       }
 
       .mobile-social a {
         color: var(--white) !important;
         text-decoration: none;
         font-family: var(--font-sans) !important;
-        font-size: 0.68rem;
-        letter-spacing: 0.12em;
+        font-size: 0.62rem;
+        letter-spacing: 0.14em;
         text-transform: uppercase;
-        opacity: 0.55;
+        opacity: 0.6;
+        white-space: nowrap;
       }
 
       .slider-controls {
