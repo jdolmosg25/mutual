@@ -6,10 +6,10 @@
   <title>Mutual Media Group — Fotografía y Producción Audiovisual</title>
   <style>
     :root {
-      --bg: #ffffff; /* Fondo oscuro para resaltar el logo blanco */
+      --bg: #1A1A18;
       --white: #FFFFFF;
       --font-serif: 'Instrument Serif', serif;
-      --font-sans: 'DM Sans', sans-serif;
+      --font-sans: 'Montserrat', sans-serif;
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -18,7 +18,7 @@
       background-color: var(--bg);
       color: var(--white);
       font-family: var(--font-sans);
-      overflow: hidden; /* Evita el scroll ya que solo es una pantalla */
+      overflow: hidden; /* Evita scrolls innecesarios en la entrega inicial */
     }
 
     .hero {
@@ -41,36 +41,44 @@
       display: block;
     }
 
-    /* Copy central/inferior */
+    /* Contenido inferior izquierdo (Copy pulido y diagramado) */
     .hero-content {
-      max-width: 800px;
+      max-width: 750px;
       z-index: 2;
+      margin-top: auto;
     }
 
     h1 {
       font-family: var(--font-serif);
-      font-size: clamp(2.5rem, 6vw, 5rem);
+      font-size: clamp(2.2rem, 4.5vw, 3.8rem);
       font-weight: 400;
-      line-height: 1.1;
-      margin-bottom: 10px;
+      line-height: 1.15;
+      margin-bottom: 16px;
+      text-shadow: 0px 2px 15px rgba(0,0,0,0.3);
     }
 
     p {
-      font-size: 1.1rem;
-      letter-spacing: 0.1em;
+      font-family: var(--font-sans);
+      font-weight: 400;
+      font-size: clamp(0.75rem, 1.1vw, 0.85rem);
+      letter-spacing: 0.18em;
       text-transform: uppercase;
-      opacity: 0.8;
+      opacity: 0.85;
+      line-height: 1.6;
+      text-shadow: 0px 2px 10px rgba(0,0,0,0.3);
     }
 
-    /* Controles discretos */
+    /* Controles discretos del Slider (Flechas finas laterales) */
     .slider-controls {
       position: absolute;
       top: 50%;
+      left: 40px;
       width: calc(100% - 80px);
       display: flex;
       justify-content: space-between;
       pointer-events: none;
       z-index: 10;
+      transform: translateY(-50%);
     }
 
     .slider-controls button {
@@ -80,66 +88,34 @@
       font-size: 2rem;
       cursor: pointer;
       opacity: 0.2;
-      transition: opacity 0.3s;
+      transition: opacity 0.3s, transform 0.3s;
       pointer-events: auto;
     }
 
-    .slider-controls button:hover { opacity: 1; }
-  </style>
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif&family=DM+Sans:wght@400&display=swap" rel="stylesheet" />
-</head>
-<body>
-
-  <section class="hero" id="hero">
-    <div class="logo">
-      <img src="logo.png" alt="Mutual">
-    </div>
-
-    <div class="hero-content">
-      <h1>Productora audiovisual y fotografía especializada</h1>
-      <p>Desarrollo de proyectos visuales desde el rigor técnico y la narrativa documental</p>
-    </div>
-
-    <div class="slider-controls">
-      <button onclick="moveSlider(-1)">&#10229;</button>
-      <button onclick="moveSlider(1)">&#10230;</button>
-    </div>
-  </section>
-
-  <script>
-    // 1. LISTA DE TUS FOTOS: Asegúrate de que estos nombres coincidan con tus archivos en GitHub
-    const images = [
-      'mutual03.jpg',
-      'mutual01.jpg', 
-      'mutual02.jpg',
-      'mutual04.jpg',
-      'mutual05.jpg',
-      'mutual06.jpg',
-      'mutual07.jpg',
-      'mutual08.jpg',
-    ]; 
-    
-    let currentIndex = 0;
-    const hero = document.getElementById('hero');
-
-    function updateHero() {
-      hero.style.backgroundImage = `linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.1) 100%), url('${images[currentIndex]}')`;
+    .slider-controls button:hover { 
+      opacity: 0.8;
+      transform: scale(1.1);
     }
 
-    function moveSlider(direction) {
-      currentIndex = (currentIndex + direction + images.length) % images.length;
-      updateHero();
+    /* Redes Flotantes (Derecha en formato vertical elegante) */
+    .social-links {
+      position: absolute;
+      right: 40px;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      z-index: 5;
     }
 
-    // Auto-play cada 6 segundos
-    let timer = setInterval(() => moveSlider(1), 6000);
-
-    // Pausar al pasar el mouse
-    hero.addEventListener('mouseenter', () => clearInterval(timer));
-    hero.addEventListener('mouseleave', () => timer = setInterval(() => moveSlider(1), 6000));
-
-    // Iniciar
-    updateHero();
-  </script>
-</body>
-</html>
+    .social-links a {
+      color: var(--white);
+      text-decoration: none;
+      font-family: var(--font-sans);
+      font-size: 0.75rem;
+      font-weight: 400;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      opacity: 0.4;
+      transition: opacity 0.3s;
