@@ -58,7 +58,7 @@
     }
 
     p {
-      font-family: var(--font-sans); /* Forzado Montserrat */
+      font-family: var(--font-sans);
       font-weight: 400;
       font-size: clamp(0.75rem, 1.1vw, 0.85rem);
       letter-spacing: 0.18em;
@@ -68,7 +68,7 @@
       text-shadow: 0px 2px 10px rgba(0,0,0,0.4);
     }
 
-    /* Controles del Slider */
+    /* Controles del Slider (Flechas Escritorio) */
     .slider-controls {
       position: absolute;
       top: 50%;
@@ -97,7 +97,7 @@
       transform: scale(1.1);
     }
 
-    /* Redes Flotantes (Efecto elegante e inserción de Montserrat) */
+    /* Redes Flotantes (Derecha vertical) */
     .social-links {
       position: absolute;
       right: 40px;
@@ -112,7 +112,7 @@
     .social-links a {
       color: var(--white);
       text-decoration: none;
-      font-family: var(--font-sans); /* OBLIGA A MONTSERRAT */
+      font-family: var(--font-sans);
       font-size: 0.72rem;
       font-weight: 400;
       letter-spacing: 0.2em;
@@ -125,10 +125,9 @@
       padding: 5px 0;
     }
 
-    /* Efecto de línea sutil al pasar el mouse */
     .social-links a:hover { 
       opacity: 1;
-      transform: translateY(-3px); /* Pequeño desplazamiento hacia arriba */
+      transform: translateY(-3px);
     }
 
     /* Info de contacto (Inferior Derecha) */
@@ -144,7 +143,7 @@
       display: block;
       color: var(--white);
       text-decoration: none;
-      font-family: var(--font-sans); /* OBLIGA A MONTSERRAT */
+      font-family: var(--font-sans);
       font-size: 0.78rem;
       font-weight: 400;
       letter-spacing: 0.05em;
@@ -165,45 +164,67 @@
     @media (max-width: 768px) {
       .hero {
         padding: 30px 24px;
-        /* Prioriza el encuadre central en pantallas verticales */
         background-position: center center; 
+        justify-content: flex-start; /* Permite controlar el flujo vertical manualmente */
+      }
+
+      .logo {
+        margin-bottom: auto; /* Empuja el contenido inferior hacia abajo de forma dinámica */
       }
 
       .hero-content {
-        margin-bottom: 140px; /* Deja espacio libre abajo para los links */
+        margin-top: 0;
+        margin-bottom: 160px; /* Margen de seguridad crucial para evitar el corte */
+        max-width: 100%;
       }
 
-      /* Reacomodamos las redes para que no estorben verticalmente */
-      .social-links {
-        position: absolute;
-        left: 24px;
-        bottom: 40px;
-        top: auto;
-        transform: none;
-        flex-direction: row; /* Pasan a estar horizontales abajo */
-        gap: 16px;
-        width: calc(100% - 48px);
+      h1 {
+        font-size: 1.8rem; /* Tamaño fijo controlado para pantallas de teléfonos */
+        line-height: 1.2;
+        margin-bottom: 12px;
       }
 
-      .social-links a {
-        writing-mode: horizontal-tb; /* Texto normal horizontal */
+      p {
         font-size: 0.68rem;
-        letter-spacing: 0.12em;
+        letter-spacing: 0.14em;
+        line-height: 1.5;
       }
 
+      /* Reacomodación absoluta de la información de contacto abajo a la izquierda */
       .contact-info {
         left: 24px;
-        bottom: 85px; /* Se ubica perfectamente arriba de las redes */
+        right: auto;
+        bottom: 70px;
         text-align: left;
       }
 
       .contact-info a {
-        font-size: 0.75rem;
+        font-size: 0.7rem;
+        margin-top: 4px;
       }
 
-      /* Ocultamos las flechas en mobile ya que la gente pasa las fotos deslizando o con botones nativos */
+      /* Reacomodación absoluta de las redes abajo de forma horizontal */
+      .social-links {
+        position: absolute;
+        left: 24px;
+        right: auto;
+        bottom: 30px;
+        top: auto;
+        transform: none;
+        flex-direction: row; 
+        gap: 16px;
+        width: auto;
+      }
+
+      .social-links a {
+        writing-mode: horizontal-tb; 
+        font-size: 0.65rem;
+        letter-spacing: 0.1em;
+        padding: 0;
+      }
+
       .slider-controls {
-        display: none;
+        display: none; /* Se ocultan las flechas en móviles */
       }
     }
   </style>
