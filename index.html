@@ -208,11 +208,11 @@
       .mobile-social {
         display: flex;
         flex-direction: column;
+        justify-content: space-evenly;
         position: fixed;
-        left: -30px;
-        top: 50%;
-        transform: translateY(-50%) rotate(-90deg);
-        gap: 24px;
+        left: 12px;
+        top: 0;
+        height: 100vh;
         z-index: 10;
       }
 
@@ -224,7 +224,8 @@
         letter-spacing: 0.14em;
         text-transform: uppercase;
         opacity: 0.6;
-        white-space: nowrap;
+        writing-mode: vertical-lr;
+        transform: rotate(180deg);
       }
 
       .slider-controls {
