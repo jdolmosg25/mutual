@@ -104,6 +104,7 @@
       text-shadow: 0px 2px 10px rgba(0, 0, 0, 0.6);
     }
 
+    /* Controles generales del Slider (Desktop) */
     .slider-controls {
       position: absolute;
       top: 50%;
@@ -159,6 +160,7 @@
       transform: translateX(-4px);
     }
 
+    /* Ajustes Móviles */
     @media (max-width: 768px) {
       .hero {
         padding: 40px 30px;
@@ -205,15 +207,16 @@
         margin-top: 6px;
       }
 
+      /* Redes laterales móviles fijas */
       .mobile-social {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  position: fixed;
-  left: 12px;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 10;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        position: fixed;
+        left: 12px;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 10;
       }
 
       .mobile-social a {
@@ -228,8 +231,16 @@
         transform: rotate(180deg);
       }
 
+      /* Habilitar las flechas en Mobile distribuidas en los extremos con buen área de toque */
       .slider-controls {
-        display: none;
+        display: flex;
+        left: 15px;
+        width: calc(100% - 30px);
+      }
+
+      .slider-controls button {
+        opacity: 0.3; /* Un toque más visibles en móviles para pantallas táctiles */
+        font-size: 1.8rem;
       }
     }
 
@@ -313,28 +324,42 @@
       if (heroElement) {
         const isMobile = window.innerWidth <= 768;
         const currentList = isMobile ? mobileImages : desktopImages;
+        
+        // Ajuste de seguridad: si pasamos de PC a Mobile y el índice es mayor al tamaño de la lista móvil, lo reseteamos
+        if (currentIndex >= currentList.length) {
+          currentIndex = 0;
+        }
+
         heroElement.style.backgroundImage = `linear-gradient(180deg, rgba(0,0,0,0.0) 0%, rgba(0,0,0,0.0) 100%), url('${currentList[currentIndex]}')`;
       }
     }
 
     function moveSlider(direction) {
-      currentIndex = (currentIndex + direction + desktopImages.length) % desktopImages.length;
+      const isMobile = window.innerWidth <= 768;
+      const currentList = isMobile ? mobileImages : desktopImages;
+      
+      currentIndex = (currentIndex + direction + currentList.length) % currentList.length;
       updateHero();
     }
 
-    let timer = setInterval(() => moveSlider(1), 3000);
+    // Configuración exacta del ciclo a 5 segundos (5000ms)
+    let timer = setInterval(() => moveSlider(1), 5000);
 
     document.addEventListener('DOMContentLoaded', () => {
       const heroElement = document.getElementById('hero');
       if (heroElement) {
+        // Pausa el carrusel cuando el cursor está encima y lo reanuda a 5 segundos al salir
         heroElement.addEventListener('mouseenter', () => clearInterval(timer));
-        heroElement.addEventListener('mouseleave', () => timer = setInterval(() => moveSlider(1), 3000));
+        heroElement.addEventListener('mouseleave', () => timer = setInterval(() => moveSlider(1), 5000));
       }
     });
 
+    // Evento activo en teclado para adelantar/atrasar usando las flechas de dirección (Solo Desktop)
     document.addEventListener('keydown', (event) => {
-      if (event.key === 'ArrowRight') moveSlider(1);
-      else if (event.key === 'ArrowLeft') moveSlider(-1);
+      if (window.innerWidth > 768) {
+        if (event.key === 'ArrowRight') moveSlider(1);
+        else if (event.key === 'ArrowLeft') moveSlider(-1);
+      }
     });
 
     window.addEventListener('resize', updateHero);
