@@ -130,30 +130,23 @@
     }
 
     nav a {
-      font-family: var(--font);
-      font-size: 9px;
-      font-weight: 500;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
+      display: flex;
+      align-items: center;
       color: var(--w40);
       text-decoration: none;
       transition: color .3s ease;
-      position: relative;
     }
 
-    nav a::after {
-      content: '';
-      position: absolute;
-      bottom: -2px; left: 0; right: 0;
-      height: 1px;
-      background: var(--white);
-      transform: scaleX(0);
-      transform-origin: left;
-      transition: transform .3s ease;
+    nav a svg {
+      width: 16px;
+      height: 16px;
+      display: block;
+      transition: opacity .3s ease;
     }
 
-    nav a:hover          { color: var(--white); }
-    nav a:hover::after   { transform: scaleX(1); }
+    nav a:hover { color: var(--white); }
+
+    nav a::after { display: none; }
 
     /* ── HERO TEXT ───────────────────────────────────────────── */
     .hero-text {
@@ -296,7 +289,7 @@
       /* Controles: un poco por debajo del centro */
       .controls {
         bottom: auto;
-        top: 60%;
+        top: 80%;
         gap: 12px;
       }
 
@@ -335,9 +328,15 @@
         <img src="logo.png" alt="Mutual Media Group" />
       </div>
       <nav>
-        <a href="https://www.behance.net/juandmutual"   target="_blank" rel="noopener">BE</a>
-        <a href="https://www.vimeo.com/juandmutual"     target="_blank" rel="noopener">VI</a>
-        <a href="https://www.instagram.com/juandmutual" target="_blank" rel="noopener">IG</a>
+        <a href="https://www.behance.net/juandmutual" target="_blank" rel="noopener" aria-label="Behance">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8.228 14.182H5.189v-2.455h2.987c.8 0 1.37.5 1.37 1.228 0 .773-.5 1.227-1.318 1.227zm-.273-4.637H5.189V7.273H7.91c.727 0 1.227.454 1.227 1.136 0 .727-.5 1.136-1.182 1.136zM16.5 10.5c-.955 0-1.682.636-1.773 1.636H18.2c-.136-.955-.773-1.636-1.7-1.636zM24 4v16a4 4 0 01-4 4H4a4 4 0 01-4-4V4a4 4 0 014-4h16a4 4 0 014 4zm-5.5 6.5h-4.773V9h4.773v1.5zM11.25 12.09c0-1.59-1.09-2.59-2.727-2.59H3.5V17h5.09c1.728 0 2.91-1.09 2.91-2.727 0-1-.5-1.773-1.318-2.136.636-.364 1.068-1 1.068-2.047zm8.25.683c0-1.864-1.364-3.273-3.273-3.273S12.954 10.909 12.954 12.818v.364h5.387c-.09 1.09-.864 1.727-1.909 1.727-.818 0-1.409-.364-1.727-1h-1.682C13.341 15.5 14.773 16.5 16.5 16.5c2 0 3-1.364 3-3.727z"/></svg>
+        </a>
+        <a href="https://www.vimeo.com/juandmutual" target="_blank" rel="noopener" aria-label="Vimeo">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.977 6.416c-.105 2.338-1.739 5.543-4.894 9.609-3.268 4.247-6.026 6.37-8.29 6.37-1.409 0-2.578-1.294-3.553-3.881L5.322 11.4C4.603 8.816 3.834 7.522 3.01 7.522c-.179 0-.806.378-1.881 1.132L0 7.197c1.185-1.044 2.351-2.084 3.501-3.128C5.08 2.701 6.266 1.984 7.055 1.91c1.867-.18 3.016 1.1 3.447 3.838.465 2.953.789 4.789.971 5.507.539 2.45 1.131 3.674 1.776 3.674.502 0 1.256-.796 2.265-2.385 1.004-1.589 1.54-2.797 1.612-3.628.144-1.371-.395-2.061-1.212-2.061-.43 0-.872.099-1.32.299 1.093-3.591 3.176-5.34 6.245-5.25 2.278.066 3.354 1.543 3.138 4.512z"/></svg>
+        </a>
+        <a href="https://www.instagram.com/juandmutual" target="_blank" rel="noopener" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+        </a>
       </nav>
     </header>
 
