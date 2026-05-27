@@ -39,7 +39,7 @@
       transition: background-image 1s ease-in-out;
     }
 
-    /* Degradado sutil inferior para asegurar legibilidad total */
+    /* Degradado sutil inferior para asegurar legibilidad total de forma natural */
     .hero::before {
       content: '';
       position: absolute;
@@ -81,7 +81,6 @@
       text-transform: uppercase;
       opacity: 0.6;
       transition: all 0.3s ease;
-      text-shadow: 0px 2px 8px rgba(0,0,0,0.5);
     }
 
     .social-links a:hover { 
@@ -89,9 +88,10 @@
       transform: translateY(-2px);
     }
 
-    /* Contenedor del texto tipo vitrina (Editable) */
+    /* Contenedor ampliado al 100% para evitar cortes inesperados en desktop */
     .hero-content {
-      max-width: 900px; /* Más ancho para permitir el formato horizontal imponente */
+      width: 100%;
+      max-width: 100%; 
       z-index: 2;
       margin-top: auto;
       margin-bottom: 20px;
@@ -99,25 +99,23 @@
 
     h1 {
       font-family: var(--font-sans);
-      font-size: clamp(2.2rem, 5.2vw, 4.8rem); /* Escala gigante fluida */
-      font-weight: 800; /* Peso extra-bold como en tu imagen */
-      line-height: 1.02; /* Interlineado bien compacto e imponente */
+      font-size: clamp(2.2rem, 5.2vw, 4.6rem); /* Ajustado levemente el tope para pantallas promedio */
+      font-weight: 800;
+      line-height: 1.02;
       margin-bottom: 24px;
       letter-spacing: -0.01em;
-      text-transform: uppercase; /* Mayúsculas sostenidas */
-      text-shadow: 0px 4px 24px rgba(0, 0, 0, 0.75), 0px 2px 8px rgba(0, 0, 0, 0.5);
+      text-transform: uppercase;
     }
 
     p {
       font-family: var(--font-sans) !important;
       font-weight: 500;
-      font-size: clamp(0.78rem, 1.1vw, 0.95rem); /* Un toque más grande y nítido */
+      font-size: clamp(0.78rem, 1.1vw, 0.95rem);
       letter-spacing: 0.04em;
-      text-transform: none; /* Texto descriptivo en formato normal */
+      text-transform: none;
       opacity: 0.95;
       line-height: 1.6;
-      max-width: 750px; /* Evita que el párrafo se estire demasiado horizontalmente */
-      text-shadow: 0px 2px 12px rgba(0, 0, 0, 0.8), 0px 1px 4px rgba(0, 0, 0, 0.5);
+      max-width: 850px;
     }
 
     p strong {
@@ -172,7 +170,6 @@
       opacity: 0.55;
       margin-top: 8px;
       transition: all 0.3s ease;
-      text-shadow: 0px 2px 8px rgba(0,0,0,0.5);
     }
 
     .contact-info a:hover { 
@@ -199,8 +196,13 @@
 
       .hero-content {
         margin-top: auto;
-        margin-bottom: 140px; /* Más espacio inferior para no pisar el contacto móvil */
+        margin-bottom: 140px;
         max-width: 100%;
+      }
+
+      /* En móvil removemos el br para que fluya según el ancho del cel */
+      h1 br {
+        display: none;
       }
 
       h1 {
@@ -228,7 +230,7 @@
       }
 
       .contact-info span {
-        display: none !important; /* Escondemos el copyright en móvil para limpiar espacio */
+        display: none !important;
       }
 
       /* Redes laterales móviles fijas */
@@ -289,8 +291,9 @@
       </div>
     </div>
 
+    <!-- TEXTO EDITABLE: Estructurado en dos líneas fijas para Desktop con <br> -->
     <div class="hero-content">
-      <h1>Productora audiovisual y fotografía especializada.</h1>
+      <h1>Productora audiovisual y<br>fotografía especializada.</h1>
       <p>Desarrollo de proyectos visuales desde el rigor técnico y la narrativa documental.<br><strong>Dirigidos por Juan de Mutual.</strong></p>
     </div>
 
@@ -365,7 +368,7 @@
       updateHero();
     }
 
-    // Duración exacta a 5 segundos (5000ms)
+    // Duración a 5 segundos
     let timer = setInterval(() => moveSlider(1), 5000);
 
     document.addEventListener('DOMContentLoaded', () => {
