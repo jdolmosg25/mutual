@@ -210,12 +210,12 @@
 
     .f-phone { text-align: right; }
 
-    .f-legal {
+    .f-tagline {
       font-family: var(--font);
-      font-size: 9px;
+      font-size: 10px;
       font-weight: 400;
-      letter-spacing: 0.1em;
-      color: var(--w12);
+      letter-spacing: 0.12em;
+      color: var(--w40);
       text-align: center;
       text-transform: uppercase;
       white-space: nowrap;
@@ -282,11 +282,11 @@
         line-height: 1.05;
       }
 
-      /* Footer: email + teléfono arriba, copyright abajo */
+      /* Footer: email + teléfono arriba, tagline abajo */
       footer { grid-template-columns: 1fr 1fr; row-gap: 4px; }
       .f-phone { display: block; text-align: right; font-size: 9px; }
       .f-email { font-size: 9px; }
-      .f-legal { display: block; grid-column: 1 / -1; font-size: 8px; text-align: left; margin-top: 2px; }
+      .f-tagline { display: block; grid-column: 1 / -1; font-size: 8px; text-align: left; margin-top: 2px; white-space: normal; }
 
       /* Controles: un poco por debajo del centro */
       .controls {
@@ -336,15 +336,13 @@
       </nav>
     </header>
 
-    <div class="hero-text">
-      <h1>Audiovisual<br>y Fotografía.</h1>
-    </div>
+    <div class="hero-text"></div>
 
     <footer>
       <div class="f-email">
         Juan de Mutual &ensp;·&ensp; <a href="mailto:proyectos@mutualmediagroup.com">proyectos@mutualmediagroup.com</a>
       </div>
-      <div class="f-legal">Bogotá &ensp;·&ensp; © 2026 Mutual Media Group</div>
+      <div class="f-tagline">Productora audiovisual y fotografía especializada — Bogotá, Colombia</div>
       <div class="f-phone">
         <a href="https://wa.me/573156372648" target="_blank" rel="noopener">+57 315 637 2648</a>
       </div>
