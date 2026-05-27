@@ -203,10 +203,15 @@
 
     .f-email a, .f-phone a {
       color: inherit;
-      text-decoration: none;
-      transition: color .3s;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      text-decoration-color: var(--w25);
+      transition: color .3s, text-decoration-color .3s;
     }
-    .f-email a:hover, .f-phone a:hover { color: var(--w60); }
+    .f-email a:hover, .f-phone a:hover {
+      color: var(--w60);
+      text-decoration-color: var(--w60);
+    }
 
     .f-phone { text-align: right; }
 
@@ -282,11 +287,11 @@
         line-height: 1.05;
       }
 
-      /* Footer: email + teléfono arriba, tagline abajo */
-      footer { grid-template-columns: 1fr 1fr; row-gap: 4px; }
-      .f-phone { display: block; text-align: right; font-size: 9px; }
+      /* Footer: todo alineado a la izquierda en una columna */
+      footer { grid-template-columns: 1fr; row-gap: 3px; }
+      .f-phone { display: block; text-align: left; font-size: 9px; }
       .f-email { font-size: 9px; }
-      .f-tagline { display: block; grid-column: 1 / -1; font-size: 8px; text-align: left; margin-top: 2px; white-space: normal; }
+      .f-tagline { display: block; font-size: 8px; text-align: left; margin-top: 2px; white-space: normal; }
 
       /* Controles: un poco por debajo del centro */
       .controls {
