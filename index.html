@@ -274,20 +274,36 @@
       html, body { cursor: auto; }
       .cursor { display: none; }
 
-      .byline { font-size: 11px; }
       nav { gap: 16px; }
 
-      .controls { bottom: 58px; gap: 12px; }
+      /* Texto más chico para que quepa en una sola línea */
+      h1 {
+        font-size: clamp(2rem, 9.5vw, 2.6rem);
+        line-height: 1.05;
+      }
 
+      /* Footer solo muestra email, en una columna */
       footer { grid-template-columns: 1fr; }
       .f-legal, .f-phone { display: none; }
       .f-email { font-size: 9px; }
 
-      h1 { font-size: clamp(52px, 13vw, 80px); }
+      /* Controles: suben para no chocar con el footer */
+      .controls {
+        bottom: 52px;
+        gap: 12px;
+      }
+
+      /* Dots un poco más grandes para ser tocables */
+      .dot { width: 6px; height: 6px; }
+      .dot.active { width: 22px; }
+
+      /* Cursor táctil */
+      .ctrl { cursor: auto; }
+      .dot  { cursor: auto; }
     }
 
     @media (max-width: 420px) {
-      h1 { font-size: 48px; }
+      h1 { font-size: clamp(1.8rem, 9vw, 2.2rem); }
     }
   </style>
 </head>
