@@ -261,8 +261,9 @@
       text-align: center;
       text-transform: uppercase;
     }
+    .f-tagline .f-line1::after { content: ' · '; }
     .f-tagline .f-line1,
-    .f-tagline .f-line2 { display: block; white-space: nowrap; }
+    .f-tagline .f-line2 { display: inline; white-space: nowrap; }
     .f-tagline .f-copy  { display: block; margin-top: 4px; opacity: 0.5; white-space: nowrap; }
 
     /* ── CONTROLES ───────────────────────────────────────────── */
@@ -364,6 +365,7 @@
       .f-phone { display: block; text-align: left; font-size: 9px; }
       .f-email { font-size: 9px; }
       .f-tagline { display: block; font-size: 8px; text-align: left; margin-top: 2px; }
+      .f-tagline .f-line1::after { content: ''; }
       .f-tagline .f-line1,
       .f-tagline .f-line2 { display: block; white-space: normal; }
       .f-tagline .f-copy  { display: block; margin-top: 3px; opacity: 0.6; white-space: normal; }
