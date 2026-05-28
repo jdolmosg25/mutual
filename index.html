@@ -64,14 +64,38 @@
       background-size: cover;
       background-position: center;
       opacity: 0;
+      /* Parallax: transition suave en desktop */
+      transition: background-position 0.1s ease-out;
+      will-change: background-position;
     }
     .slide.active { opacity: 1; }
+
+    /* ── GRAIN CANVAS ────────────────────────────────────────── */
+    #grain {
+      position: fixed;
+      inset: 0;
+      z-index: 3;
+      pointer-events: none;
+      opacity: 0.045;
+      mix-blend-mode: overlay;
+    }
+
+    /* ── GLITCH OVERLAY ──────────────────────────────────────── */
+    .glitch-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 4;
+      pointer-events: none;
+      opacity: 0;
+      background: transparent;
+      mix-blend-mode: screen;
+    }
 
     /* ── VIÑETA cinematográfica ─────────────────────────────── */
     .vignette {
       position: fixed;
       inset: 0;
-      z-index: 1;
+      z-index: 2;
       pointer-events: none;
       background:
         radial-gradient(ellipse at center, transparent 25%, rgba(0,0,0,0.55) 100%),
@@ -84,7 +108,7 @@
       position: fixed;
       inset: 0;
       background: var(--bg);
-      z-index: 2;
+      z-index: 5;
       opacity: 0;
       pointer-events: none;
       transition: opacity var(--fade-ms) ease;
@@ -145,7 +169,6 @@
     }
 
     nav a:hover { color: var(--white); }
-
     nav a::after { display: none; }
 
     /* ── HERO TEXT ───────────────────────────────────────────── */
@@ -219,7 +242,7 @@
       white-space: nowrap;
     }
 
-    /* ── CONTROLES (flechas + dots + pausa) ─────────────────── */
+    /* ── CONTROLES ───────────────────────────────────────────── */
     .controls {
       position: fixed;
       bottom: 68px;
@@ -274,33 +297,31 @@
 
       nav { gap: 16px; }
 
-      /* Texto más chico para que quepa en una sola línea */
       h1 {
         font-size: clamp(2rem, 9.5vw, 2.6rem);
         line-height: 1.05;
       }
 
-      /* Footer: todo alineado a la izquierda en una columna */
       footer { grid-template-columns: 1fr; row-gap: 3px; }
       .f-phone { display: block; text-align: left; font-size: 9px; }
       .f-email { font-size: 9px; }
       .f-tagline { display: block; font-size: 8px; text-align: left; margin-top: 2px; white-space: normal; }
       .f-location { display: block; }
 
-      /* Controles: un poco por debajo del centro */
       .controls {
         bottom: auto;
         top: 80%;
         gap: 12px;
       }
 
-      /* Dots un poco más grandes para ser tocables */
       .dot { width: 6px; height: 6px; }
       .dot.active { width: 22px; }
 
-      /* Cursor táctil */
       .ctrl { cursor: auto; }
       .dot  { cursor: auto; }
+
+      /* Sin grain en móvil (performance) */
+      #grain { display: none; }
     }
 
     @media (max-width: 420px) {
@@ -315,6 +336,12 @@
 
   <!-- Slideshow -->
   <div class="slideshow" id="slideshow"></div>
+
+  <!-- Grain -->
+  <canvas id="grain"></canvas>
+
+  <!-- Glitch overlay -->
+  <div class="glitch-overlay" id="glitchOverlay"></div>
 
   <!-- Viñeta -->
   <div class="vignette"></div>
@@ -383,34 +410,30 @@
 
   <script>
     // ═══════════════════════════════════════════════════════
-    //  TUS IMÁGENES — mismos nombres que tenías
+    //  IMÁGENES
     // ═══════════════════════════════════════════════════════
     const desktopImages = [
-      'mutual03.jpg',
-      'mutual01.jpg',
-      'mutual02.jpg',
-      'mutual04.jpg',
-      'mutual05.jpg',
-      'mutual06.jpg',
-      'mutual07.jpg',
-      'mutual08.jpg',
-      'mutual09.jpg'
+      'mutual03.jpg','mutual01.jpg','mutual02.jpg',
+      'mutual04.jpg','mutual05.jpg','mutual06.jpg',
+      'mutual07.jpg','mutual08.jpg','mutual09.jpg'
     ];
 
     const mobileImages = [
-      'mutual03m.jpg',
-      'mutual04m.jpg',
-      'mutual02m.jpg',
-      'mutual01m.jpg',
-      'mutual06m.jpg',
-      'mutual07m.jpg'
+      'mutual03m.jpg','mutual04m.jpg','mutual02m.jpg',
+      'mutual01m.jpg','mutual06m.jpg','mutual07m.jpg'
     ];
 
     // ═══════════════════════════════════════════════════════
     //  CONFIG
     // ═══════════════════════════════════════════════════════
-    const DURATION = 5000;   // ms por foto
-    const FADE_MS  = 400;    // ms del fade a negro
+    const DURATION = 5000;
+    const FADE_MS  = 400;
+
+    // ── PARALLAX: cuántos px se mueve la foto al cruzar la ventana
+    const PARALLAX_PX = 18;
+
+    // ── GLITCH: intensidad del desplazamiento en px
+    const GLITCH_SHIFT = 4;
 
     // ═══════════════════════════════════════════════════════
     //  ESTADO
@@ -420,18 +443,18 @@
     let isTransition = false;
     let timer        = null;
     let isMobile     = window.innerWidth <= 768;
+    let isPointerFine = window.matchMedia('(pointer: fine)').matches;
 
     function getImages() { return isMobile ? mobileImages : desktopImages; }
 
     // ═══════════════════════════════════════════════════════
-    //  CONSTRUCCIÓN DE SLIDES
+    //  SLIDES
     // ═══════════════════════════════════════════════════════
-    const slideshowEl = document.getElementById('slideshow');
-    const fadeOverlay = document.getElementById('fadeOverlay');
-    const dotsEl      = document.getElementById('dots');
+    const slideshowEl  = document.getElementById('slideshow');
+    const fadeOverlay  = document.getElementById('fadeOverlay');
+    const glitchOverlay= document.getElementById('glitchOverlay');
+    const dotsEl       = document.getElementById('dots');
 
-    // Creamos slides con todas las imágenes desktop
-    // (en mobile cambiamos backgroundImage al vuelo)
     const slides = desktopImages.map((src, i) => {
       const el = document.createElement('div');
       el.className = 'slide' + (i === 0 ? ' active' : '');
@@ -440,7 +463,6 @@
       return el;
     });
 
-    // Construimos dots según el set activo
     let dots = [];
     function buildDots() {
       dotsEl.innerHTML = '';
@@ -454,10 +476,8 @@
       });
     }
 
-    // Actualiza backgroundImage de cada slide según mobile/desktop
     function rebuildSlides() {
       const imgs = getImages();
-      // Ajustamos cuántos slides son visibles
       slides.forEach((el, i) => {
         if (i < imgs.length) {
           el.style.backgroundImage = `url('${imgs[i]}')`;
@@ -476,9 +496,138 @@
     });
 
     // ═══════════════════════════════════════════════════════
-    //  TRANSICIÓN (fade a negro)
+    //  1 · GRAIN ANIMADO
+    //  Canvas con ruido aleatorio actualizado a ~8fps
     // ═══════════════════════════════════════════════════════
-    function goTo(index) {
+    (function initGrain() {
+      const canvas = document.getElementById('grain');
+      if (!canvas) return;
+
+      const ctx = canvas.getContext('2d');
+      let w, h, rafId;
+      const FPS = 8;
+      let lastTime = 0;
+
+      function resize() {
+        // Resolución reducida → mejor performance, igual de visible
+        w = canvas.width  = Math.ceil(window.innerWidth  / 2);
+        h = canvas.height = Math.ceil(window.innerHeight / 2);
+        canvas.style.width  = window.innerWidth  + 'px';
+        canvas.style.height = window.innerHeight + 'px';
+      }
+
+      function drawGrain(ts) {
+        rafId = requestAnimationFrame(drawGrain);
+        if (ts - lastTime < 1000 / FPS) return;
+        lastTime = ts;
+
+        const img = ctx.createImageData(w, h);
+        const d   = img.data;
+        for (let i = 0; i < d.length; i += 4) {
+          const v = (Math.random() * 255) | 0;
+          d[i] = d[i+1] = d[i+2] = v;
+          d[i+3] = 255;
+        }
+        ctx.putImageData(img, 0, 0);
+      }
+
+      window.addEventListener('resize', resize);
+      resize();
+      requestAnimationFrame(drawGrain);
+    })();
+
+    // ═══════════════════════════════════════════════════════
+    //  2 · GLITCH EN TRANSICIÓN
+    //  Flash rápido con aberración cromática antes del fade
+    // ═══════════════════════════════════════════════════════
+    function triggerGlitch() {
+      return new Promise(resolve => {
+        const overlay = glitchOverlay;
+        const activeSlide = slides[current];
+        let frame = 0;
+        const FRAMES = 5; // ~83ms a 60fps
+
+        // Guardamos el transform original
+        const originalTransform = activeSlide.style.transform || '';
+
+        function glitchStep() {
+          if (frame >= FRAMES) {
+            // Restaurar
+            overlay.style.opacity = '0';
+            overlay.style.background = 'transparent';
+            activeSlide.style.transform = originalTransform;
+            activeSlide.style.filter = 'none';
+            resolve();
+            return;
+          }
+
+          const t = frame / FRAMES;
+
+          // Desplazamiento aleatorio
+          const dx = (Math.random() - 0.5) * GLITCH_SHIFT * 2;
+
+          // Aberración cromática vía filter
+          const rShift = (Math.random() - 0.5) * GLITCH_SHIFT;
+          const bShift = (Math.random() - 0.5) * GLITCH_SHIFT;
+
+          activeSlide.style.transform = `translateX(${dx}px)`;
+          activeSlide.style.filter =
+            `drop-shadow(${rShift}px 0 0 rgba(255,0,0,0.6))
+             drop-shadow(${-bShift}px 0 0 rgba(0,150,255,0.6))`;
+
+          // Flash de overlay en el primer frame
+          if (frame === 0) {
+            overlay.style.background = 'rgba(255,255,255,0.07)';
+            overlay.style.opacity = '1';
+          } else if (frame === 2) {
+            overlay.style.opacity = '0';
+          }
+
+          frame++;
+          requestAnimationFrame(glitchStep);
+        }
+
+        requestAnimationFrame(glitchStep);
+      });
+    }
+
+    // ═══════════════════════════════════════════════════════
+    //  3 · PARALLAX CON EL MOUSE
+    //  background-position del slide activo sigue el cursor
+    // ═══════════════════════════════════════════════════════
+    let mouseX = 0.5, mouseY = 0.5; // normalizados 0–1
+    let rafParallax = null;
+
+    function applyParallax() {
+      const slide = slides[current];
+      if (!slide) return;
+
+      // Centro base = 50% 50%
+      // Movimiento: ±PARALLAX_PX alrededor del centro
+      const x = 50 + (mouseX - 0.5) * PARALLAX_PX * -1; // invertido = profundidad
+      const y = 50 + (mouseY - 0.5) * PARALLAX_PX * -1;
+
+      slide.style.backgroundPosition = `${x.toFixed(2)}% ${y.toFixed(2)}%`;
+    }
+
+    if (isPointerFine && !isMobile) {
+      document.addEventListener('mousemove', e => {
+        mouseX = e.clientX / window.innerWidth;
+        mouseY = e.clientY / window.innerHeight;
+        cancelAnimationFrame(rafParallax);
+        rafParallax = requestAnimationFrame(applyParallax);
+      });
+    }
+
+    // Resetea parallax del slide anterior al cambiar
+    function resetParallax(slideEl) {
+      slideEl.style.backgroundPosition = '50% 50%';
+    }
+
+    // ═══════════════════════════════════════════════════════
+    //  TRANSICIÓN PRINCIPAL (glitch → fade → cambio)
+    // ═══════════════════════════════════════════════════════
+    async function goTo(index) {
       if (isTransition) return;
       const imgs = getImages();
       const next = ((index % imgs.length) + imgs.length) % imgs.length;
@@ -487,27 +636,40 @@
       isTransition = true;
       clearTimeout(timer);
 
-      // 1 · Negro
+      // 1 · Glitch (solo desktop con pointer fino)
+      if (isPointerFine && !isMobile) {
+        await triggerGlitch();
+      }
+
+      // 2 · Fade a negro
       fadeOverlay.classList.add('on');
 
-      setTimeout(() => {
-        slides[current].classList.remove('active');
-        if (dots[current]) dots[current].classList.remove('active');
+      await wait(FADE_MS);
 
-        current = next;
+      // 3 · Cambio de slide
+      resetParallax(slides[current]);
+      slides[current].classList.remove('active');
+      if (dots[current]) dots[current].classList.remove('active');
 
-        slides[current].classList.add('active');
-        if (dots[current]) dots[current].classList.add('active');
+      current = next;
 
-        // 2 · Reaparece
-        fadeOverlay.classList.remove('on');
+      slides[current].classList.add('active');
+      if (dots[current]) dots[current].classList.add('active');
 
-        setTimeout(() => {
-          isTransition = false;
-          if (!isPaused) startTimer();
-        }, FADE_MS);
+      // Aplicar parallax actual al nuevo slide
+      if (isPointerFine && !isMobile) applyParallax();
 
-      }, FADE_MS);
+      // 4 · Reaparece
+      fadeOverlay.classList.remove('on');
+
+      await wait(FADE_MS);
+
+      isTransition = false;
+      if (!isPaused) startTimer();
+    }
+
+    function wait(ms) {
+      return new Promise(resolve => setTimeout(resolve, ms));
     }
 
     const nextSlide = () => goTo(current + 1);
@@ -535,31 +697,23 @@
     }
 
     // ═══════════════════════════════════════════════════════
-    //  EVENTOS — botones
+    //  EVENTOS
     // ═══════════════════════════════════════════════════════
     document.getElementById('prevBtn').addEventListener('click', prevSlide);
     document.getElementById('nextBtn').addEventListener('click', nextSlide);
     document.getElementById('pauseBtn').addEventListener('click', togglePause);
 
-    // ═══════════════════════════════════════════════════════
-    //  EVENTOS — teclado
-    // ═══════════════════════════════════════════════════════
     document.addEventListener('keydown', e => {
       if (e.key === 'ArrowRight') nextSlide();
       if (e.key === 'ArrowLeft')  prevSlide();
       if (e.key === ' ') { e.preventDefault(); togglePause(); }
     });
 
-    // ═══════════════════════════════════════════════════════
-    //  TOUCH — swipe
-    // ═══════════════════════════════════════════════════════
     let touchX = 0, touchY = 0;
-
     document.addEventListener('touchstart', e => {
       touchX = e.touches[0].clientX;
       touchY = e.touches[0].clientY;
     }, { passive: true });
-
     document.addEventListener('touchend', e => {
       const dx = e.changedTouches[0].clientX - touchX;
       const dy = e.changedTouches[0].clientY - touchY;
@@ -569,19 +723,15 @@
     }, { passive: true });
 
     // ═══════════════════════════════════════════════════════
-    //  CURSOR (solo desktop / pointer fino)
+    //  CURSOR
     // ═══════════════════════════════════════════════════════
     const cursorEl = document.getElementById('cursor');
 
-    if (window.matchMedia('(pointer: fine)').matches) {
-      let cx = -100, cy = -100;
-
+    if (isPointerFine) {
       document.addEventListener('mousemove', e => {
-        cx = e.clientX; cy = e.clientY;
-        cursorEl.style.left = cx + 'px';
-        cursorEl.style.top  = cy + 'px';
+        cursorEl.style.left = e.clientX + 'px';
+        cursorEl.style.top  = e.clientY + 'px';
       });
-
       document.querySelectorAll('a, button, .dot').forEach(el => {
         el.addEventListener('mouseenter', () => cursorEl.classList.add('big'));
         el.addEventListener('mouseleave', () => cursorEl.classList.remove('big'));
@@ -589,7 +739,7 @@
     }
 
     // ═══════════════════════════════════════════════════════
-    //  RESIZE — reconstruye si cambia breakpoint
+    //  RESIZE
     // ═══════════════════════════════════════════════════════
     window.addEventListener('resize', () => {
       const wasMobile = isMobile;
