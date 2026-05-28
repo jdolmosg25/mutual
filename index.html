@@ -260,8 +260,10 @@
       color: var(--w40);
       text-align: center;
       text-transform: uppercase;
-      white-space: nowrap;
     }
+    .f-tagline .f-line1,
+    .f-tagline .f-line2 { display: block; white-space: nowrap; }
+    .f-tagline .f-copy  { display: block; margin-top: 4px; opacity: 0.5; white-space: nowrap; }
 
     /* ── CONTROLES ───────────────────────────────────────────── */
     .controls {
@@ -309,14 +311,49 @@
       width: 20px;
     }
 
-    /* ── MOBILE ─────────────────────────────────────────────── */
+    /* ── CTA WHATSAPP ───────────────────────────────────────── */
+    .cta-wa {
+      position: fixed;
+      bottom: 68px;
+      right: var(--px);
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--w60);
+      text-decoration: none;
+      font-family: var(--font);
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      transition: color .3s ease;
+      pointer-events: auto;
+    }
+    .cta-wa::after {
+      content: '→';
+      font-size: 12px;
+      transition: transform .3s ease;
+    }
+    .cta-wa:hover { color: var(--white); }
+    .cta-wa:hover::after { transform: translateX(4px); }
+
+    @media (max-width: 768px) {
+      .cta-wa {
+        bottom: auto;
+        top: calc(80% + 48px);
+        right: var(--px);
+        font-size: 9px;
+      }
+    }
     @media (max-width: 768px) {
       :root { --px: 24px; --py: 28px; }
 
       html, body { cursor: auto; }
       .cursor { display: none; }
 
-      nav { gap: 16px; }
+      nav { gap: 12px; }
+      nav a svg { width: 14px; height: 14px; }
 
       h1 {
         font-size: clamp(2rem, 9.5vw, 2.6rem);
@@ -326,9 +363,10 @@
       footer { grid-template-columns: 1fr; row-gap: 3px; }
       .f-phone { display: block; text-align: left; font-size: 9px; }
       .f-email { font-size: 9px; }
-      .f-tagline { display: block; font-size: 8px; text-align: left; margin-top: 2px; white-space: normal; }
-      .f-tagline .f-line1 { display: block; white-space: nowrap; }
-      .f-tagline .f-copy  { display: block; margin-top: 3px; opacity: 0.6; }
+      .f-tagline { display: block; font-size: 8px; text-align: left; margin-top: 2px; }
+      .f-tagline .f-line1,
+      .f-tagline .f-line2 { display: block; white-space: normal; }
+      .f-tagline .f-copy  { display: block; margin-top: 3px; opacity: 0.6; white-space: normal; }
 
       .controls {
         bottom: auto;
@@ -396,12 +434,19 @@
       <div class="f-email">
         Juan de Mutual &ensp;·&ensp; <a href="mailto:proyectos@mutualmediagroup.com">proyectos@mutualmediagroup.com</a>
       </div>
-      <div class="f-tagline"><span class="f-line1">Productora audiovisual y fotografía especializada · Bogotá, Colombia</span><span class="f-copy">© 2026 Mutual Media Group. Todos los derechos reservados.</span></div>
+      <div class="f-tagline">
+        <span class="f-line1">Productora audiovisual y fotografía especializada</span>
+        <span class="f-line2">Bogotá, Colombia</span>
+        <span class="f-copy">© 2026 Mutual Media Group. Todos los derechos reservados.</span>
+      </div>
       <div class="f-phone">
         <a href="https://wa.me/573156372648" target="_blank" rel="noopener">+57 315 637 2648</a>
       </div>
     </footer>
   </div>
+
+  <!-- CTA WhatsApp -->
+  <a class="cta-wa" href="https://wa.me/573156372648" target="_blank" rel="noopener" aria-label="Contactar por WhatsApp">Hablemos</a>
 
   <!-- Controles -->
   <div class="controls">
