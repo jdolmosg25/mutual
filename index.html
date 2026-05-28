@@ -502,7 +502,7 @@
     const PARALLAX_PX = 18;
 
     // ── GLITCH: intensidad del desplazamiento en px
-    const GLITCH_SHIFT = 4;
+    const GLITCH_SHIFT = 10;
 
     // ═══════════════════════════════════════════════════════
     //  ESTADO
@@ -614,7 +614,7 @@
         const overlay = glitchOverlay;
         const activeSlide = slides[current];
         let frame = 0;
-        const FRAMES = 5; // ~83ms a 60fps
+        const FRAMES = 8; // ~83ms a 60fps
 
         // Guardamos el transform original
         const originalTransform = activeSlide.style.transform || '';
@@ -646,7 +646,7 @@
 
           // Flash de overlay en el primer frame
           if (frame === 0) {
-            overlay.style.background = 'rgba(255,255,255,0.07)';
+            overlay.style.background = 'rgba(255,255,255,0.18)';
             overlay.style.opacity = '1';
           } else if (frame === 2) {
             overlay.style.opacity = '0';
