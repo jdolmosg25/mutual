@@ -606,116 +606,48 @@
     })();
 
     // ═══════════════════════════════════════════════════════
-    //  2 · TRANSICIÓN: CROSS-DISSOLVE + EFECTOS ANALÓGICOS
-    //  Aberración cromática · Scan lines · Light leak
+    //  2 · TRANSICIÓN: SLIDE CON MOMENTUM + ABERRACIÓN + LIGHT LEAK
     // ═══════════════════════════════════════════════════════
 
     function randomBetween(a, b) { return a + Math.random() * (b - a); }
     function pick(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
 
-    function triggerAnalogEffect(slideOut, slideIn) {
-      return new Promise(resolve => {
-        const overlay = glitchOverlay;
+    // Easing con pequeño rebote al final
+    function easeOutBack(t) {
+      const c1 = 1.40;
+      const c3 = c1 + 1;
+      return 1 + c3 * Math.pow(t - 1, 3) + c1 * Math.pow(t - 1, 2);
+    }
 
-        // ── Qué efectos aparecen esta vez (aleatorio) ────────
-        const useChromatic = Math.random() > 0.05; // 95%
-        const useScanLines = Math.random() > 0.20; // 80%
-        const useLightLeak = Math.random() > 0.30; // 70%
+    // Light leak — destello cálido o frío, se desvanece solo
+    function triggerLightLeak() {
+      if (Math.random() > 0.65) return; // 65% de las veces
+      const overlay  = glitchOverlay;
+      const warm     = Math.random() > 0.5;
+      const angle    = pick(['to right', 'to left', 'to bottom right', 'to bottom left']);
+      const alpha    = randomBetween(0.13, 0.28).toFixed(2);
+      const color    = warm
+        ? `rgba(255, 190, 60, ${alpha})`
+        : `rgba(60, 150, 255, ${alpha})`;
 
-        // ── Aberración cromática ─────────────────────────────
-        const chromaAngle  = randomBetween(0, Math.PI * 2);
-        const chromaShift  = randomBetween(14, 32);
-        const cx = Math.cos(chromaAngle) * chromaShift;
-        const cy = Math.sin(chromaAngle) * chromaShift;
+      overlay.style.transition = 'none';
+      overlay.style.background = `linear-gradient(${angle}, transparent 0%, ${color} 50%, transparent 100%)`;
+      overlay.style.opacity    = '1';
 
-        // ── Scan lines ───────────────────────────────────────
-        const numLines = Math.floor(randomBetween(2, 6));
-        const linePos  = Array.from({ length: numLines }, () =>
-          randomBetween(5, 95)
-        );
-
-        // ── Light leak ───────────────────────────────────────
-        const leakWarm   = Math.random() > 0.5;
-        const leakAngle  = pick(['to right', 'to bottom', 'to bottom right', 'to bottom left']);
-        const leakAlpha  = randomBetween(0.20, 0.42).toFixed(2);
-        const leakColor  = leakWarm
-          ? `rgba(255, 190, 60, ${leakAlpha})`
-          : `rgba(60, 150, 255, ${leakAlpha})`;
-
-        // ── Duración ─────────────────────────────────────────
-        const frames = Math.floor(randomBetween(7, 13)); // 7–12 frames
-        let frame = 0;
-
-        function buildScanGradient() {
-          return linePos.map(pos => {
-            const w  = randomBetween(0.4, 1.8);
-            const op = randomBetween(0.55, 1.0).toFixed(2);
-            return `linear-gradient(to bottom,
-              transparent ${(pos - w).toFixed(1)}%,
-              rgba(255,255,255,${op}) ${pos.toFixed(1)}%,
-              transparent ${(pos + w).toFixed(1)}%)`;
-          }).join(', ');
-        }
-
-        function step() {
-          if (frame >= frames) {
-            slideOut.style.filter   = '';
-            slideIn.style.filter    = '';
-            overlay.style.opacity   = '0';
-            overlay.style.background = 'transparent';
-            resolve();
-            return;
-          }
-
-          // — Aberración cromática: jitter leve frame a frame —
-          if (useChromatic) {
-            const j  = randomBetween(0.75, 1.25);
-            const fx = (cx * j).toFixed(2);
-            const fy = (cy * j).toFixed(2);
-            // Slide saliente: split completo
-            slideOut.style.filter =
-              `drop-shadow(${fx}px ${fy}px 0 rgba(255,20,40,0.90))
-               drop-shadow(${-fx}px ${-fy}px 0 rgba(20,110,255,0.90))`;
-            // Slide entrante: split inverso, más sutil
-            slideIn.style.filter =
-              `drop-shadow(${-fx * 0.55}px ${-fy * 0.55}px 0 rgba(255,20,40,0.55))
-               drop-shadow(${fx  * 0.55}px ${fy  * 0.55}px 0 rgba(20,110,255,0.55))`;
-          }
-
-          // — Overlay: scan lines y/o light leak —
-          if (frame === 0) {
-            // Frame 0: light leak + scan lines
-            const parts = [];
-            if (useLightLeak)
-              parts.push(`linear-gradient(${leakAngle}, transparent 0%, ${leakColor} 45%, transparent 100%)`);
-            if (useScanLines)
-              parts.push(buildScanGradient());
-
-            if (parts.length > 0) {
-              overlay.style.background = parts.join(', ');
-              overlay.style.opacity    = '1';
-            }
-          } else if (frame === 1 && useScanLines && !useLightLeak) {
-            // Scan lines parpadean un frame más
-            overlay.style.background = buildScanGradient();
-            overlay.style.opacity    = randomBetween(0.4, 0.8).toFixed(2);
-          } else if (frame >= 2) {
-            overlay.style.opacity = '0';
-          }
-
-          frame++;
-          requestAnimationFrame(step);
-        }
-
-        requestAnimationFrame(step);
-      });
+      setTimeout(() => {
+        overlay.style.transition = 'opacity 280ms ease';
+        overlay.style.opacity    = '0';
+        setTimeout(() => {
+          overlay.style.transition = '';
+          overlay.style.background = 'transparent';
+        }, 300);
+      }, 60);
     }
 
     // ═══════════════════════════════════════════════════════
     //  3 · PARALLAX CON EL MOUSE
-    //  background-position del slide activo sigue el cursor
     // ═══════════════════════════════════════════════════════
-    let mouseX = 0.5, mouseY = 0.5; // normalizados 0–1
+    let mouseX = 0.5, mouseY = 0.5;
     let rafParallax = null;
 
     function applyParallax() { applyParallaxTo(slides[current]); }
@@ -736,13 +668,12 @@
       });
     }
 
-    // Resetea parallax del slide anterior al cambiar
     function resetParallax(slideEl) {
       slideEl.style.backgroundPosition = '50% 50%';
     }
 
     // ═══════════════════════════════════════════════════════
-    //  TRANSICIÓN PRINCIPAL (cross-dissolve + glitch aleatorio)
+    //  TRANSICIÓN PRINCIPAL
     // ═══════════════════════════════════════════════════════
     async function goTo(index) {
       if (isTransition) return;
@@ -756,55 +687,71 @@
       const slideOut = slides[current];
       const slideIn  = slides[next];
 
-      // 1 · Preparar slide entrante (invisible, encima)
-      slideIn.style.opacity  = '0';
-      slideIn.style.zIndex   = '1';
+      // Dirección aleatoria: 1 = sale a la derecha / entra desde izquierda
+      //                     -1 = sale a la izquierda / entra desde derecha
+      const dir = Math.random() > 0.5 ? 1 : -1;
+
+      // Preparar slide entrante: posicionado fuera de pantalla
+      slideIn.style.transform  = `translateX(${-dir * 100}%)`;
+      slideIn.style.opacity    = '1';
+      slideIn.style.zIndex     = '2';
       slideIn.classList.add('active');
-      slideOut.style.zIndex  = '0';
+      slideOut.style.zIndex    = '1';
 
       if (dots[current]) dots[current].classList.remove('active');
       if (dots[next])    dots[next].classList.add('active');
 
-      // Aplicar parallax al nuevo slide desde ya
-      if (isPointerFine && !isMobile) applyParallaxTo(slideIn);
-
-      // 2 · Cross-dissolve: ambas fotos visibles simultáneamente
-      const DISSOLVE_MS = 320;
-      const start = performance.now();
-
-      await new Promise(resolve => {
-        function dissolve(ts) {
-          const t = Math.min((ts - start) / DISSOLVE_MS, 1);
-          // easeInOut suave
-          const ease = t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
-          slideIn.style.opacity  = ease.toFixed(3);
-          slideOut.style.opacity = (1 - ease * 0.6).toFixed(3); // sale más lento
-          if (t < 1) requestAnimationFrame(dissolve);
-          else resolve();
-        }
-        requestAnimationFrame(dissolve);
-      });
-
-      // 3 · Glitch aleatorio en el punto de máxima fusión (solo desktop)
       if (isPointerFine && !isMobile) {
-        await triggerAnalogEffect(slideOut, slideIn);
+        applyParallaxTo(slideIn);
+        triggerLightLeak(); // destello al inicio
       }
 
-      // 4 · Completar — limpiar slide saliente
+      const SLIDE_MS = 680;
+      const start    = performance.now();
+
+      // Aberración cromática: intensidad fija por transición, varía entre transiciones
+      const chromaStrength = randomBetween(10, 22);
+
+      await new Promise(resolve => {
+        function animate(ts) {
+          const raw  = Math.min((ts - start) / SLIDE_MS, 1);
+          const ease = easeOutBack(raw);
+
+          // Movimiento de ambos slides
+          slideOut.style.transform = `translateX(${(dir * ease * 102).toFixed(2)}%)`;
+          slideIn.style.transform  = `translateX(${(-dir * (1 - ease) * 102).toFixed(2)}%)`;
+
+          // Aberración cromática — crece hacia la mitad y baja al final
+          if (isPointerFine && !isMobile) {
+            const ca = Math.sin(raw * Math.PI) * chromaStrength;
+            slideOut.style.filter =
+              `drop-shadow(${(dir * ca).toFixed(1)}px 0 0 rgba(255,20,40,0.82))
+               drop-shadow(${(-dir * ca).toFixed(1)}px 0 0 rgba(20,110,255,0.82))`;
+            slideIn.style.filter  =
+              `drop-shadow(${(-dir * ca * 0.45).toFixed(1)}px 0 0 rgba(255,20,40,0.42))
+               drop-shadow(${(dir * ca * 0.45).toFixed(1)}px 0 0 rgba(20,110,255,0.42))`;
+          }
+
+          if (raw < 1) requestAnimationFrame(animate);
+          else resolve();
+        }
+        requestAnimationFrame(animate);
+      });
+
+      // Limpiar slide saliente
       slideOut.classList.remove('active');
-      slideOut.style.opacity = '';
-      slideOut.style.zIndex  = '';
       slideOut.style.transform = '';
       slideOut.style.filter    = '';
+      slideOut.style.zIndex    = '';
+      slideOut.style.opacity   = '';
       resetParallax(slideOut);
 
-      slideIn.style.opacity = '';
-      slideIn.style.zIndex  = '';
+      // Limpiar slide entrante
       slideIn.style.transform = '';
       slideIn.style.filter    = '';
+      slideIn.style.zIndex    = '';
 
       current = next;
-
       isTransition = false;
       if (!isPaused) startTimer();
     }
