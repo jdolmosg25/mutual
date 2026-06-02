@@ -3,14 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <!-- ── SEO básico ───────────────────────────────────────── -->
   <title>Mutual Media Group — Productora Audiovisual y Fotografía · Bogotá</title>
   <meta name="description" content="Productora audiovisual y fotografía especializada en Bogotá, Colombia. Proyectos visuales con criterio de autor. Juan de Mutual." />
   <meta name="keywords" content="productora audiovisual, fotografía, Bogotá, Colombia, Juan de Mutual, Mutual Media Group, video, foto, producción" />
   <meta name="author" content="Juan de Mutual — Mutual Media Group" />
   <link rel="canonical" href="https://www.mutualmediagroup.com/" />
-
-  <!-- ── Open Graph (WhatsApp, Facebook, LinkedIn) ────────── -->
   <meta property="og:type"         content="website" />
   <meta property="og:url"          content="https://www.mutualmediagroup.com/" />
   <meta property="og:title"        content="Mutual Media Group — Productora Audiovisual y Fotografía" />
@@ -20,16 +17,12 @@
   <meta property="og:image:height" content="630" />
   <meta property="og:locale"       content="es_CO" />
   <meta property="og:site_name"    content="Mutual Media Group" />
-
-  <!-- ── Twitter / X Card ─────────────────────────────────── -->
   <meta name="twitter:card"        content="summary_large_image" />
   <meta name="twitter:title"       content="Mutual Media Group — Productora Audiovisual y Fotografía" />
   <meta name="twitter:description" content="Productora audiovisual y fotografía especializada en Bogotá, Colombia. Juan de Mutual." />
   <meta name="twitter:image"       content="https://www.mutualmediagroup.com/og-image.jpg" />
-
   <link rel="preconnect" href="https://fonts.bunny.net">
   <link href="https://fonts.bunny.net/css?family=montserrat:400,500,700,800&display=swap" rel="stylesheet" />
-
   <link rel="icon" type="image/png" href="favicon.png" />
 
   <style>
@@ -71,11 +64,7 @@
     }
     .cursor.big { width: 36px; height: 36px; }
 
-    .slideshow {
-      position: fixed;
-      inset: 0;
-      z-index: 0;
-    }
+    .slideshow { position: fixed; inset: 0; z-index: 0; }
 
     .slide {
       position: absolute;
@@ -89,149 +78,95 @@
     .slide.active { opacity: 1; }
 
     #grain {
-      position: fixed;
-      inset: 0;
-      z-index: 3;
-      pointer-events: none;
-      opacity: 0.045;
+      position: fixed; inset: 0; z-index: 3;
+      pointer-events: none; opacity: 0.045;
       mix-blend-mode: overlay;
     }
 
     .glitch-overlay {
-      position: fixed;
-      inset: 0;
-      z-index: 4;
-      pointer-events: none;
-      opacity: 0;
-      background: transparent;
-      mix-blend-mode: screen;
+      position: fixed; inset: 0; z-index: 4;
+      pointer-events: none; opacity: 0;
+      background: transparent; mix-blend-mode: screen;
     }
 
     .vignette {
-      position: fixed;
-      inset: 0;
-      z-index: 2;
-      pointer-events: none;
+      position: fixed; inset: 0; z-index: 2; pointer-events: none;
       background:
-        radial-gradient(ellipse at center, transparent 25%, rgba(0,0,0,0.55) 100%),
-        linear-gradient(to top,    rgba(0,0,0,0.82) 0%,  rgba(0,0,0,0.08) 48%, transparent 70%),
-        linear-gradient(to bottom, rgba(0,0,0,0.45) 0%,  transparent 22%);
+        radial-gradient(ellipse at center, transparent 35%, rgba(0,0,0,0.35) 100%),
+        linear-gradient(to top,    rgba(0,0,0,0.60) 0%,  rgba(0,0,0,0.04) 48%, transparent 70%),
+        linear-gradient(to bottom, rgba(0,0,0,0.28) 0%,  transparent 22%);
     }
 
     .fade-overlay {
-      position: fixed;
-      inset: 0;
-      background: var(--bg);
-      z-index: 5;
-      opacity: 0;
-      pointer-events: none;
+      position: fixed; inset: 0; background: var(--bg);
+      z-index: 5; opacity: 0; pointer-events: none;
       transition: opacity var(--fade-ms) ease;
     }
     .fade-overlay.on { opacity: 1; }
 
     .ui {
-      position: fixed;
-      inset: 0;
-      z-index: 10;
-      display: grid;
-      grid-template-rows: auto 1fr auto;
-      padding: var(--py) var(--px);
-      pointer-events: none;
+      position: fixed; inset: 0; z-index: 10;
+      display: grid; grid-template-rows: auto 1fr auto;
+      padding: var(--py) var(--px); pointer-events: none;
     }
 
     header {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      pointer-events: auto;
+      display: flex; align-items: flex-start;
+      justify-content: space-between; pointer-events: auto;
     }
 
-    .logo-block {
-      display: flex;
-      flex-direction: column;
-      gap: 5px;
-    }
+    .logo-block { display: flex; flex-direction: column; gap: 5px; }
+    .logo-block img { height: 36px; width: auto; display: block; }
 
-    .logo-block img {
-      height: 36px;
-      width: auto;
-      display: block;
-    }
-
-    nav {
-      display: flex;
-      gap: 26px;
-      align-items: center;
-      padding-top: 6px;
-    }
+    nav { display: flex; gap: 26px; align-items: center; padding-top: 6px; }
 
     nav a {
-      display: flex;
-      align-items: center;
-      color: var(--w40);
+      display: flex; align-items: center;
+      /* 1 · Iconos blancos sin opacidad */
+      color: var(--white);
       text-decoration: none;
       transition: color .3s ease;
     }
-
-    nav a svg {
-      width: 16px;
-      height: 16px;
-      display: block;
-      transition: opacity .3s ease;
-    }
-
-    nav a:hover { color: var(--white); }
+    nav a svg { width: 16px; height: 16px; display: block; }
+    nav a:hover { color: var(--w60); }
     nav a::after { display: none; }
 
     .hero-text {
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      padding-bottom: 6px;
-      pointer-events: none;
+      display: flex; flex-direction: column;
+      justify-content: flex-end; padding-bottom: 6px; pointer-events: none;
     }
 
     h1 {
       font-family: var(--font);
       font-size: clamp(2.2rem, 5.2vw, 4.6rem);
-      font-weight: 800;
-      line-height: 1.02;
-      letter-spacing: -0.01em;
-      text-transform: uppercase;
+      font-weight: 800; line-height: 1.02;
+      letter-spacing: -0.01em; text-transform: uppercase;
       text-shadow: 0 2px 40px rgba(0,0,0,0.35);
     }
 
     .sub {
-      margin-top: 14px;
-      font-family: var(--font);
-      font-size: clamp(10px, 1vw, 12px);
-      font-weight: 500;
-      letter-spacing: 0.28em;
-      text-transform: uppercase;
+      margin-top: 14px; font-family: var(--font);
+      font-size: clamp(10px, 1vw, 12px); font-weight: 500;
+      letter-spacing: 0.28em; text-transform: uppercase;
       color: var(--w60);
     }
 
     footer {
-      display: grid;
-      grid-template-columns: 1fr auto 1fr;
-      align-items: flex-end;
-      pointer-events: auto;
+      display: grid; grid-template-columns: 1fr auto 1fr;
+      align-items: flex-end; pointer-events: auto;
     }
 
-    .f-email,
-    .f-phone {
-      font-family: var(--font);
-      font-size: 10px;
-      font-weight: 400;
-      letter-spacing: 0.06em;
-      color: var(--w25);
+    .f-email, .f-phone {
+      font-family: var(--font); font-size: 10px;
+      font-weight: 400; letter-spacing: 0.06em;
+      /* 1 · Texto blanco sin opacidad */
+      color: var(--white);
     }
 
     .f-email a, .f-phone a {
-      color: inherit;
-      text-decoration: underline;
+      color: inherit; text-decoration: underline;
       text-underline-offset: 3px;
-      text-decoration-color: var(--w25);
+      text-decoration-color: rgba(255,255,255,0.4);
       transition: color .3s, text-decoration-color .3s;
     }
     .f-email a:hover, .f-phone a:hover {
@@ -242,106 +177,66 @@
     .f-phone { text-align: right; }
 
     .f-tagline {
-      font-family: var(--font);
-      font-size: 10px;
-      font-weight: 400;
-      letter-spacing: 0.12em;
-      color: var(--w40);
+      font-family: var(--font); font-size: 10px;
+      font-weight: 400; letter-spacing: 0.12em;
+      color: var(--white);
       text-align: center;
-      text-transform: uppercase;
     }
     .f-tagline .f-line1::after { content: ' · '; }
     .f-tagline .f-line1,
     .f-tagline .f-line2 { display: inline; white-space: nowrap; }
-    .f-tagline .f-copy  { display: block; margin-top: 4px; opacity: 0.5; white-space: nowrap; }
+    /* 2 · Copyright mismo tamaño que el email (10px) y un poco menos brillante */
+    .f-tagline .f-copy {
+      display: block; margin-top: 4px;
+      font-size: 10px;
+      opacity: 0.55; white-space: nowrap;
+    }
 
     .controls {
-      position: fixed;
-      bottom: 68px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 20;
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      pointer-events: auto;
+      position: fixed; bottom: 68px; left: 50%;
+      transform: translateX(-50%); z-index: 20;
+      display: flex; align-items: center; gap: 16px; pointer-events: auto;
     }
 
     .ctrl {
-      background: none;
-      border: none;
-      cursor: none;
-      color: var(--w40);
-      transition: color .25s ease;
-      padding: 6px;
-      display: flex;
-      align-items: center;
+      background: none; border: none; cursor: none;
+      color: var(--w40); transition: color .25s ease;
+      padding: 6px; display: flex; align-items: center;
     }
     .ctrl:hover { color: var(--white); }
     .ctrl svg { width: 18px; height: 18px; display: block; }
 
-    .dots {
-      display: flex;
-      gap: 7px;
-      align-items: center;
-    }
+    .dots { display: flex; gap: 7px; align-items: center; }
 
     .dot {
-      width: 4px; height: 4px;
-      border-radius: 2px;
-      background: var(--w25);
-      border: none;
-      cursor: none;
-      padding: 0;
+      width: 4px; height: 4px; border-radius: 2px;
+      background: var(--w25); border: none; cursor: none; padding: 0;
       transition: background .35s ease, width .35s ease;
     }
-    .dot.active {
-      background: var(--white);
-      width: 20px;
-    }
+    .dot.active { background: var(--white); width: 20px; }
 
-    /* ── CTA WHATSAPP ───────────────────────────────────────── */
     .cta-wa {
-      position: fixed;
-      bottom: 68px;
-      right: var(--px);
-      z-index: 20;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      color: var(--w60);
-      text-decoration: none;
-      font-family: var(--font);
-      font-size: 10px;
-      font-weight: 500;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      transition: color .3s ease;
-      pointer-events: auto;
+      position: fixed; bottom: 68px; right: var(--px); z-index: 20;
+      display: flex; align-items: center; gap: 8px;
+      /* 1 · CTA blanco sin opacidad */
+      color: var(--white);
+      text-decoration: none; font-family: var(--font);
+      font-size: 10px; font-weight: 500;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      transition: color .3s ease; pointer-events: auto;
     }
-    .cta-wa::after {
-      content: '→';
-      font-size: 12px;
-      transition: transform .3s ease;
-    }
-    .cta-wa:hover { color: var(--white); }
+    .cta-wa::after { content: '→'; font-size: 12px; transition: transform .3s ease; }
+    .cta-wa:hover { color: var(--w60); }
     .cta-wa:hover::after { transform: translateX(4px); }
 
     /* ── MOBILE ─────────────────────────────────────────────── */
     @media (max-width: 768px) {
       :root { --px: 24px; --py: 28px; }
-
       html, body { cursor: auto; }
       .cursor { display: none; }
-
       nav { gap: 12px; }
       nav a svg { width: 14px; height: 14px; }
-
-      h1 {
-        font-size: clamp(2rem, 9.5vw, 2.6rem);
-        line-height: 1.05;
-      }
-
+      h1 { font-size: clamp(2rem, 9.5vw, 2.6rem); line-height: 1.05; }
       footer { grid-template-columns: 1fr; row-gap: 3px; }
       .f-phone { display: block; text-align: left; font-size: 9px; }
       .f-email { font-size: 9px; }
@@ -349,28 +244,14 @@
       .f-tagline .f-line1::after { content: ''; }
       .f-tagline .f-line1,
       .f-tagline .f-line2 { display: block; white-space: normal; }
-      .f-tagline .f-copy  { display: block; margin-top: 3px; opacity: 0.6; white-space: normal; }
-
-      .controls {
-        bottom: auto;
-        top: 80%;
-        gap: 12px;
-      }
-
+      .f-tagline .f-copy  { display: block; margin-top: 3px; font-size: 8px; white-space: normal; }
+      .controls { bottom: auto; top: 80%; gap: 12px; }
       .dot { width: 6px; height: 6px; }
       .dot.active { width: 22px; }
-
       .ctrl { cursor: auto; }
       .dot  { cursor: auto; }
-
       #grain { display: none; }
-
-      .cta-wa {
-        bottom: auto;
-        top: calc(80% + 48px);
-        right: var(--px);
-        font-size: 9px;
-      }
+      .cta-wa { bottom: auto; top: calc(80% + 48px); right: var(--px); font-size: 9px; }
     }
 
     @media (max-width: 420px) {
@@ -412,7 +293,7 @@
         Juan de Mutual &ensp;·&ensp; <a href="mailto:proyectos@mutualmediagroup.com">proyectos@mutualmediagroup.com</a>
       </div>
       <div class="f-tagline">
-        <span class="f-line1">Productora audiovisual y fotografía especializada</span>
+        <span class="f-line1">PRODUCCION AUDIOVISUAL Y FOTOGRAFIA ESPECIALIZADA</span>
         <span class="f-line2">Bogotá, Colombia</span>
         <span class="f-copy">© 2026 Mutual Media Group. Todos los derechos reservados.</span>
       </div>
@@ -426,9 +307,7 @@
 
   <div class="controls">
     <button class="ctrl" id="prevBtn" aria-label="Foto anterior">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
-        <polyline points="15 18 9 12 15 6"/>
-      </svg>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
     </button>
     <div class="dots" id="dots"></div>
     <button class="ctrl" id="pauseBtn" aria-label="Pausar">
@@ -441,28 +320,37 @@
       </svg>
     </button>
     <button class="ctrl" id="nextBtn" aria-label="Foto siguiente">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
-        <polyline points="9 18 15 12 9 6"/>
-      </svg>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
     </button>
   </div>
 
   <script>
-    const desktopImages = [
+    // 3 · Función shuffle (Fisher-Yates) — mezcla el arreglo in place
+    function shuffle(arr) {
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      return arr;
+    }
+
+    // Arreglos base — se mezclan al cargar
+    const desktopImages = shuffle([
       'mutual06.jpg','mutual10.jpg','mutual02.jpg',
       'mutual04.jpg','mutual09.jpg','mutual08.jpg',
       'mutual07.jpg','mutual05.jpg','mutual01.jpg',
       'mutual03.jpg','mutual12.jpg','mutual11.jpg'
-    ];
+    ]);
 
-    const mobileImages = [
+    const mobileImages = shuffle([
       'mutual03m.jpg','mutual04m.jpg','mutual02m.jpg',
       'mutual01m.jpg','mutual06m.jpg','mutual07m.jpg'
-    ];
+       'mutual08m.jpg','mutual09m.jpg'
+    ]);
 
-    const DURATION    = 5000;
-    const FADE_MS     = 400;
-    const PARALLAX_PX = 18;
+    const DURATION     = 5000;
+    const FADE_MS      = 400;
+    const PARALLAX_PX  = 18;
     const GLITCH_SHIFT = 10;
 
     let current       = 0;
@@ -479,11 +367,8 @@
     const glitchOverlay = document.getElementById('glitchOverlay');
     const dotsEl        = document.getElementById('dots');
 
-    // Creamos slides para el máximo entre desktop y móvil
-    // así ambos arreglos son completamente independientes
     const maxSlides = Math.max(desktopImages.length, mobileImages.length);
-
-    const slides = Array.from({ length: maxSlides }, (_, i) => {
+    const slides = Array.from({ length: maxSlides }, () => {
       const el = document.createElement('div');
       el.className = 'slide';
       slideshowEl.appendChild(el);
@@ -515,9 +400,7 @@
           el.style.display = 'none';
         }
       });
-      // Asegura que current nunca supere el total disponible
       if (current >= imgs.length) current = 0;
-      // Activa el slide correcto
       slides.forEach((el, i) => {
         if (el.style.display !== 'none') {
           el.classList.toggle('active', i === current);
@@ -536,14 +419,12 @@
       const ctx = canvas.getContext('2d');
       const FPS = 8;
       let lastTime = 0;
-
       function resize() {
         canvas.width  = Math.ceil(window.innerWidth  / 2);
         canvas.height = Math.ceil(window.innerHeight / 2);
         canvas.style.width  = window.innerWidth  + 'px';
         canvas.style.height = window.innerHeight + 'px';
       }
-
       function drawGrain(ts) {
         requestAnimationFrame(drawGrain);
         if (ts - lastTime < 1000 / FPS) return;
@@ -552,12 +433,10 @@
         const d = img.data;
         for (let i = 0; i < d.length; i += 4) {
           const v = (Math.random() * 255) | 0;
-          d[i] = d[i+1] = d[i+2] = v;
-          d[i+3] = 255;
+          d[i] = d[i+1] = d[i+2] = v; d[i+3] = 255;
         }
         ctx.putImageData(img, 0, 0);
       }
-
       window.addEventListener('resize', resize);
       resize();
       requestAnimationFrame(drawGrain);
@@ -571,32 +450,27 @@
         let frame = 0;
         const FRAMES = 8;
         const originalTransform = activeSlide.style.transform || '';
-
         function glitchStep() {
           if (frame >= FRAMES) {
             overlay.style.opacity       = '0';
             overlay.style.background    = 'transparent';
             activeSlide.style.transform = originalTransform;
             activeSlide.style.filter    = 'none';
-            resolve();
-            return;
+            resolve(); return;
           }
           const dx     = (Math.random() - 0.5) * GLITCH_SHIFT * 2;
           const rShift = (Math.random() - 0.5) * GLITCH_SHIFT;
           const bShift = (Math.random() - 0.5) * GLITCH_SHIFT;
-
           activeSlide.style.transform = `translateX(${dx}px)`;
           activeSlide.style.filter =
             `drop-shadow(${rShift}px 0 0 rgba(255,0,0,0.6))
              drop-shadow(${-bShift}px 0 0 rgba(0,150,255,0.6))`;
-
           if (frame === 0) {
             overlay.style.background = 'rgba(255,255,255,0.18)';
             overlay.style.opacity    = '1';
           } else if (frame === 2) {
             overlay.style.opacity = '0';
           }
-
           frame++;
           requestAnimationFrame(glitchStep);
         }
@@ -635,35 +509,25 @@
       const imgs = getImages();
       const next = ((index % imgs.length) + imgs.length) % imgs.length;
       if (next === current) return;
-
       isTransition = true;
       clearTimeout(timer);
-
       if (isPointerFine && !isMobile) await triggerGlitch();
-
       fadeOverlay.classList.add('on');
       await wait(FADE_MS);
-
       resetParallax(slides[current]);
       slides[current].classList.remove('active');
       if (dots[current]) dots[current].classList.remove('active');
-
       current = next;
-
       slides[current].classList.add('active');
       if (dots[current]) dots[current].classList.add('active');
-
       if (isPointerFine && !isMobile) applyParallax();
-
       fadeOverlay.classList.remove('on');
       await wait(FADE_MS);
-
       isTransition = false;
       if (!isPaused) startTimer();
     }
 
     function wait(ms) { return new Promise(r => setTimeout(r, ms)); }
-
     const nextSlide = () => goTo(current + 1);
     const prevSlide = () => goTo(current - 1);
 
@@ -694,8 +558,7 @@
 
     let touchX = 0, touchY = 0;
     document.addEventListener('touchstart', e => {
-      touchX = e.touches[0].clientX;
-      touchY = e.touches[0].clientY;
+      touchX = e.touches[0].clientX; touchY = e.touches[0].clientY;
     }, { passive: true });
     document.addEventListener('touchend', e => {
       const dx = e.changedTouches[0].clientX - touchX;
