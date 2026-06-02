@@ -26,6 +26,7 @@
   <link rel="icon" type="image/png" href="favicon.png" />
 
   <style>
+    /* ── VARIABLES ── */
     :root {
       --bg:      #000000;
       --white:   #ffffff;
@@ -49,6 +50,7 @@
       cursor: none;
     }
 
+    /* ── CURSOR ── */
     .cursor {
       position: fixed;
       width: 8px; height: 8px;
@@ -63,6 +65,7 @@
     }
     .cursor.big { width: 36px; height: 36px; }
 
+    /* ── SLIDESHOW ── */
     .slideshow { position: fixed; inset: 0; z-index: 0; }
 
     .slide {
@@ -74,12 +77,14 @@
     }
     .slide.active { opacity: 1; }
 
+    /* ── GRAIN ── */
     #grain {
       position: fixed; inset: 0; z-index: 3;
       pointer-events: none; opacity: 0.045;
       mix-blend-mode: overlay;
     }
 
+    /* ── OVERLAYS ── */
     .glitch-overlay {
       position: fixed; inset: 0; z-index: 4;
       pointer-events: none; opacity: 0;
@@ -101,6 +106,7 @@
     }
     .fade-overlay.on { opacity: 1; }
 
+    /* ── UI / HEADER ── */
     .ui {
       position: fixed; inset: 0; z-index: 10;
       display: grid; grid-template-rows: auto 1fr auto;
@@ -131,6 +137,7 @@
       justify-content: flex-end; padding-bottom: 6px; pointer-events: none;
     }
 
+    /* ── FOOTER ── */
     footer {
       display: grid;
       grid-template-columns: 1fr auto 1fr;
@@ -175,6 +182,7 @@
       margin-top: 4px;
     }
 
+    /* ── CONTROLES ── */
     .controls {
       position: fixed; bottom: 68px; left: 50%;
       transform: translateX(-50%); z-index: 20;
@@ -198,6 +206,7 @@
     }
     .dot.active { background: var(--white); width: 20px; }
 
+    /* ── CTA WHATSAPP ── */
     .cta-wa {
       position: fixed; bottom: 68px; right: var(--px); z-index: 20;
       display: flex; align-items: center; gap: 8px;
@@ -210,6 +219,7 @@
     .cta-wa:hover { color: var(--w60); }
     .cta-wa:hover::after { transform: translateX(4px); }
 
+    /* ── MOBILE ── */
     @media (max-width: 768px) {
       :root { --px: 24px; --py: 28px; }
       html, body { cursor: auto; }
@@ -221,24 +231,27 @@
         grid-template-rows: unset;
         row-gap: 3px;
       }
-      .f-email  { font-size: 9px; order: 1; }
+      .f-email   { font-size: 9px; order: 1; }
       .f-tagline { font-size: 8px; text-align: left; order: 2; }
       .f-tagline .f-line1::after { content: ''; }
       .f-tagline .f-line1,
       .f-tagline .f-line2 { display: block; white-space: normal; }
-      .f-phone  { display: block; text-align: left; font-size: 9px; order: 3; }
-      .f-copy   {
-        grid-column: unset; text-align: left;
-        font-size: 8px; margin-top: 0;
-        order: 4; white-space: normal;
-      }
-      .controls { bottom: auto; top: 80%; gap: 12px; }
-      .dot { width: 6px; height: 6px; }
+      .f-phone   { display: block; text-align: left; font-size: 9px; order: 3; }
+      .f-copy    { grid-column: unset; text-align: left; font-size: 8px; margin-top: 0; order: 4; white-space: normal; }
+      .controls  { bottom: auto; top: 80%; gap: 12px; }
+      .dot       { width: 6px; height: 6px; }
       .dot.active { width: 22px; }
-      .ctrl { cursor: auto; }
-      .dot  { cursor: auto; }
-      #grain { display: none; }
-      .cta-wa { bottom: auto; top: calc(80% + 48px); right: var(--px); font-size: 9px; }
+      .ctrl      { cursor: auto; }
+      .dot       { cursor: auto; }
+      #grain     { display: none; }
+      .cta-wa {
+        bottom: auto;
+        top: calc(80% - 10px);
+        right: unset;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 9px;
+      }
     }
 
     @media (max-width: 420px) {
@@ -280,8 +293,8 @@
         Juan de Mutual &ensp;·&ensp; <a href="mailto:proyectos@mutualmediagroup.com">proyectos@mutualmediagroup.com</a>
       </div>
       <div class="f-tagline">
-        <span class="f-line1">PRODUCCION AUDIOVISUAL Y FOTOGRAFIA ESPECIALIZADA</span>
-        <span class="f-line2">BOGOTA, COLOMBIA</span>
+        <span class="f-line1">PRODUCCION AUDIOVISUAL Y FOTOGRAFIA ESPECIALIAZADA</span>
+        <span class="f-line2">Bogotá, Colombia</span>
       </div>
       <div class="f-phone">
         <a href="https://wa.me/573156372648" target="_blank" rel="noopener">+57 315 637 2648</a>
@@ -312,6 +325,7 @@
   </div>
 
   <script>
+    // IMÁGENES — agregar o quitar fotos aquí
     function shuffle(arr) {
       for (let i = arr.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -329,10 +343,11 @@
 
     const mobileImages = shuffle([
       'mutual03m.jpg','mutual04m.jpg','mutual02mv2.jpg',
-      'mutual01m.jpg','mutual06mv2.jpg','mutual07m.jpg',
+      'mutual01m.jpg','mutual06mv2.jpg','mutual07mv2.jpg',
       'mutual08m.jpg','mutual09m.jpg','mutual05m.jpg'
     ]);
 
+    // CONFIG
     const DURATION     = 5000;
     const FADE_MS      = 400;
     const PARALLAX_PX  = 18;
@@ -397,6 +412,7 @@
       const img = new Image(); img.src = src;
     });
 
+    // GRAIN
     (function initGrain() {
       const canvas = document.getElementById('grain');
       if (!canvas) return;
@@ -426,6 +442,7 @@
       requestAnimationFrame(drawGrain);
     })();
 
+    // GLITCH
     function triggerGlitch() {
       return new Promise(resolve => {
         const overlay     = glitchOverlay;
@@ -461,6 +478,7 @@
       });
     }
 
+    // PARALLAX
     let mouseX = 0.5, mouseY = 0.5;
     let rafParallax = null;
 
@@ -485,6 +503,7 @@
       slideEl.style.backgroundPosition = '50% 50%';
     }
 
+    // TRANSICIÓN
     async function goTo(index) {
       if (isTransition) return;
       const imgs = getImages();
@@ -517,6 +536,7 @@
       timer = setTimeout(nextSlide, DURATION);
     }
 
+    // CONTROLES
     const iconPause = document.getElementById('iconPause');
     const iconPlay  = document.getElementById('iconPlay');
 
@@ -549,6 +569,7 @@
       }
     }, { passive: true });
 
+    // CURSOR
     const cursorEl = document.getElementById('cursor');
     if (isPointerFine) {
       document.addEventListener('mousemove', e => {
