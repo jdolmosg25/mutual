@@ -246,7 +246,7 @@
       #grain     { display: none; }
       .cta-wa {
         bottom: auto;
-        top: calc(80% - 40px);
+        top: calc(80% - 10px);
         right: unset;
         left: 50%;
         transform: translateX(-50%);
@@ -326,6 +326,7 @@
 
   <script>
     // IMÁGENES — agregar o quitar fotos aquí
+    // link: URL a Behance, Vimeo, Pixieset, etc. — null si no tiene link
     function shuffle(arr) {
       for (let i = arr.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -334,19 +335,37 @@
       return arr;
     }
 
-    const desktopImages = shuffle([
-      'mutual06.jpg','mutual10.jpg','mutual02v2.jpg',
-      'mutual04.jpg','mutual09.jpg','mutual08.jpg',
-      'mutual07.jpg','mutual05.jpg','mutual01.jpg',
-      'mutual13.jpg','mutual12.jpg','mutual11.jpg'
+    const desktopSlides = shuffle([
+      { img: 'mutual06.jpg', link: null },
+      { img: 'mutual10.jpg', link: null },
+      { img: 'mutual02v2.jpg', link:'https://juandemutual.pixieset.com/darmanddizeemills' },
+      { img: 'mutual04.jpg', link: null },
+      { img: 'mutual09.jpg', link: null },
+      { img: 'mutual08.jpg', link: null },
+      { img: 'mutual07.jpg', link: null },
+      { img: 'mutual05.jpg', link: null },
+      { img: 'mutual01.jpg', link: null },
+      { img: 'mutual03.jpg', link: null },
+      { img: 'mutual12.jpg', link: null },
+      { img: 'mutual11.jpg', link: null },
     ]);
 
-    const mobileImages = shuffle([
-      'mutual03mv2.jpg','mutual04mv2.jpg','mutual02mv2.jpg',
-      'mutual01m.jpg','mutual06mv2.jpg','mutual07mv4.jpg',
-      'mutual08m.jpg','mutual09m.jpg','mutual05mv2.jpg',
-      'mutual10m.jpg'
+    const mobileSlides = shuffle([
+      { img: 'mutual03m.jpg',  link: null },
+      { img: 'mutual04m.jpg',  link: null },
+      { img: 'mutual02mv2.jpg',link: null },
+      { img: 'mutual01m.jpg',  link: null },
+      { img: 'mutual06mv2.jpg',link: null },
+      { img: 'mutual07m.jpg',  link: null },
+      { img: 'mutual08m.jpg',  link: null },
+      { img: 'mutual09m.jpg',  link: null },
+      { img: 'mutual05m.jpg',  link: null },
     ]);
+
+    const desktopImages = desktopSlides.map(s => s.img);
+    const mobileImages  = mobileSlides.map(s => s.img);
+    const desktopLinks  = desktopSlides.map(s => s.link);
+    const mobileLinks   = mobileSlides.map(s => s.link);
 
     // CONFIG
     const DURATION     = 5000;
@@ -362,6 +381,7 @@
     let isPointerFine = window.matchMedia('(pointer: fine)').matches;
 
     function getImages() { return isMobile ? mobileImages : desktopImages; }
+    function getLinks()  { return isMobile ? mobileLinks  : desktopLinks;  }
 
     const slideshowEl   = document.getElementById('slideshow');
     const fadeOverlay   = document.getElementById('fadeOverlay');
@@ -504,6 +524,18 @@
       slideEl.style.backgroundPosition = '50% 50%';
     }
 
+    // CURSOR EN FOTO CON LINK
+    function updateSlideCursor() {
+      const link = getLinks()[current];
+      slideshowEl.style.cursor = link ? 'pointer' : 'default';
+    }
+
+    slideshowEl.addEventListener('click', () => {
+      if (isTransition) return;
+      const link = getLinks()[current];
+      if (link) window.open(link, '_blank', 'noopener');
+    });
+
     // TRANSICIÓN
     async function goTo(index) {
       if (isTransition) return;
@@ -522,6 +554,7 @@
       slides[current].classList.add('active');
       if (dots[current]) dots[current].classList.add('active');
       if (isPointerFine && !isMobile) applyParallax();
+      updateSlideCursor();
       fadeOverlay.classList.remove('on');
       await wait(FADE_MS);
       isTransition = false;
@@ -595,6 +628,7 @@
 
     rebuildSlides();
     buildDots();
+    updateSlideCursor();
     startTimer();
   </script>
 </body>
