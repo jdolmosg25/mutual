@@ -59,22 +59,20 @@
       pointer-events: none;
       z-index: 9999;
       transform: translate(-50%, -50%);
-      transition: width .25s ease, height .25s ease, background .25s ease;
+      transition: width .25s ease, height .25s ease;
       mix-blend-mode: difference;
       will-change: left, top;
     }
-    .cursor.link { transition: none; }
     .cursor.big  { width: 36px; height: 36px; }
     .cursor.link {
-      border: 1.5px solid var(--white);
-      background: transparent;
-      animation: cursorBreathe 1.4s ease-in-out infinite;
+      transition: none;
+      animation: cursorBreathe 2.2s ease-in-out infinite;
     }
 
     @keyframes cursorBreathe {
-      0%   { width: 8px;  height: 8px;  opacity: 1; }
-      50%  { width: 36px; height: 36px; opacity: 0.7; }
-      100% { width: 8px;  height: 8px;  opacity: 1; }
+      0%   { width: 8px;  height: 8px;  }
+      50%  { width: 36px; height: 36px; }
+      100% { width: 8px;  height: 8px;  }
     }
 
     /* ── SLIDESHOW ── */
@@ -258,7 +256,7 @@
       #grain     { display: none; }
       .cta-wa {
         bottom: auto;
-        top: calc(80% - 10px);
+        top: calc(80% - 40px);
         right: unset;
         left: 50%;
         transform: translateX(-50%);
@@ -298,9 +296,7 @@
       </nav>
     </header>
 
-    <div class="hero-text">
-      <p class="sub">Fotografía y video para marcas que importan.</p>
-    </div>
+    <div class="hero-text"></div>
 
     <footer>
       <div class="f-email">
@@ -350,24 +346,26 @@
     }
 
     const desktopSlides = shuffle([
-      { img: 'mutual06.jpg',   link: 'https://www.behance.net/gallery/000000/Nombre-Proyecto' },
-      { img: 'mutual10.jpg',   link: null },
+      { img: 'mutual06.jpg',   link: 'https://juandemutual.pixieset.com/makingenlasnubesdelasierra/' },
+      { img: 'mutual10v2.jpg', link: null },
       { img: 'mutual02v2.jpg', link: null },
       { img: 'mutual04.jpg',   link: null },
-      { img: 'mutual09.jpg',   link: null },
-      { img: 'mutual08.jpg',   link: null },
+      { img: 'mutual09.jpg',   link: 'https://juandemutual.pixieset.com/lakasta/' },
+      { img: 'mutual08v2.jpg', link: 'https://juandemutual.pixieset.com/bogavante/' },
       { img: 'mutual07.jpg',   link: null },
       { img: 'mutual05.jpg',   link: null },
       { img: 'mutual01.jpg',   link: null },
       { img: 'mutual13.jpg',   link: null },
-      { img: 'mutual12.jpg',   link: null },
-      { img: 'mutual11.jpg',   link: null },
+      { img: 'mutual12v2.jpg', link: null },
+      { img: 'mutual11v3.jpg', link: null },
+      { img: 'mutual14.jpg',   link: 'https://juandemutual.pixieset.com/conciertodelasierra/' },
+      { img: 'mutual15v2.jpg', link: null },
     ]);
 
     const mobileSlides = shuffle([
-      { img: 'mutual03mv2.jpg', link: 'https://www.behance.net/gallery/000000/Nombre-Proyecto' },
+      { img: 'mutual03mv2.jpg', link: null },
       { img: 'mutual04mv2.jpg', link: null },
-      { img: 'mutual02mv2.jpg', link: null },
+      { img: 'mutual02mv2.jpg', link: 'https://juandemutual.pixieset.com/darmanddizeemills/' },
       { img: 'mutual01m.jpg',   link: null },
       { img: 'mutual06mv2.jpg', link: null },
       { img: 'mutual07mv4.jpg', link: null },
