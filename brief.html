@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Brief Inicial Videoclip — Mutual Media Group</title>
+  <meta name="description" content="Brief inicial para videoclip — Mutual Media Group. Diligencia la información antes de iniciar el desarrollo creativo." />
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="preconnect" href="https://fonts.bunny.net">
+  <link href="https://fonts.bunny.net/css?family=montserrat:400,500,700,800&display=swap" rel="stylesheet" />
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <style>
+    /* ── VARIABLES (idénticas al sitio principal) ── */
+    :root {
+      --bg:      #000000;
+      --white:   #ffffff;
+      --font:    'Montserrat', sans-serif;
+      --w60:     rgba(255,255,255,0.60);
+      --w40:     rgba(255,255,255,0.40);
+      --w25:     rgba(255,255,255,0.25);
+      --w15:     rgba(255,255,255,0.15);
+      --answered:#ffffff;
+      --px:      44px;
+      --py:      32px;
+    }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body {
+      width: 100%; min-height: 100%;
+      background: var(--bg);
+      color: var(--white);
+      font-family: var(--font);
+      -webkit-font-smoothing: antialiased;
+      /* a diferencia del home: aquí SÍ se permite scroll y cursor normal,
+         porque es un formulario largo, no un slideshow de una pantalla */
+      overflow-x: hidden;
+      overflow-y: auto;
+      cursor: auto;
+    }
+
+    /* ── GRANO Y VIÑETA (mismo tratamiento visual que el home) ── */
+    #grain {
+      position: fixed; inset: 0; z-index: 0;
+      pointer-events: none; opacity: 0.045;
+      mix-blend-mode: overlay;
+    }
+    .vignette {
+      position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background:
+        radial-gradient(ellipse at center, transparent 45%, rgba(0,0,0,0.35) 100%),
+        linear-gradient(to top,    rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.02) 40%, transparent 65%),
+        linear-gradient(to bottom, rgba(0,0,0,0.35) 0%, transparent 20%);
+    }
+
+    /* ── HEADER (mismo logo + nav del home, sticky) ── */
+    header.site-header {
+      position: sticky; top: 0; z-index: 10;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 22px var(--px);
+      background: rgba(0,0,0,0.72);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--w15);
+    }
+    .logo-block img { height: 30px; width: auto; display: block; }
+    .logo-block a { display: block; }
+    nav.site-nav { display: flex; gap: 22px; align-items: center; }
+    nav.site-nav a {
+      color: var(--white); text-decoration: none;
+      font-size: 10px; font-weight: 500; letter-spacing: 0.14em;
+      text-transform: uppercase;
+      transition: color .3s ease;
+    }
+    nav.site-nav a.icon { display: flex; }
+    nav.site-nav a.icon svg { width: 15px; height: 15px; display: block; }
+    nav.site-nav a:hover { color: var(--w60); }
+
+    /* ── PROGRESO (barra fina arriba, discreta) ── */
+    .progress-track {
+      position: sticky; top: 0; z-index: 11;
+      height: 2px; width: 100%;
+      background: var(--w15);
+    }
+    .progress-fill {
+      height: 100%; width: 0%;
+      background: var(--white);
+      transition: width .25s ease;
+    }
+    .progress-label {
+      position: fixed; top: 78px; right: var(--px); z-index: 11;
+      font-size: 9px; letter-spacing: 0.12em; color: var(--w40);
+      text-transform: uppercase;
+      pointer-events: none;
+    }
+
+    /* ── CONTENIDO ── */
+    main.brief-main {
+      position: relative; z-index: 2;
+      max-width: 760px; margin: 0 auto;
+      padding: 70px var(--px) 140px;
+    }
+    h1.brief-title {
+      font-size: clamp(2rem, 6vw, 3.2rem);
+      font-weight: 800; letter-spacing: -0.01em;
+      line-height: 1.05; text-transform: uppercase;
+      margin-bottom: 26px;
+    }
+    .brief-meta {
+      font-size: 11px; letter-spacing: 0.06em;
+      line-height: 2; color: var(--w60);
+      text-transform: uppercase;
+      margin-bottom: 30px;
+      border-left: 1px solid var(--w25);
+      padding-left: 16px;
+    }
+    .brief-meta b { color: var(--white); font-weight: 700; }
+    .brief-intro {
+      font-size: 14.5px; line-height: 1.85;
+      color: var(--w60); font-style: italic;
+      max-width: 640px; margin-bottom: 34px;
+    }
+    hr.divider {
+      border: none; border-top: 1px solid var(--w15);
+      margin: 8px 0 6px;
+    }
+    h2.section {
+      font-size: 11px; font-weight: 700;
+      letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--white);
+      margin: 44px 0 20px;
+      display: flex; align-items: center; gap: 12px;
+    }
+    h2.section::after {
+      content: ''; flex: 1; height: 1px; background: var(--w15);
+    }
+    .q-block { margin: 0 0 26px; }
+    .q-label {
+      display: flex; gap: 10px; align-items: flex-start;
+      font-size: 14px; line-height: 1.6; color: var(--white);
+      margin-bottom: 10px;
+    }
+    .q-num { color: var(--w40); font-weight: 600; flex-shrink: 0; }
+    .q-status {
+      width: 5px; height: 5px; border-radius: 50%;
+      background: var(--w25); flex-shrink: 0; margin-top: 7px;
+      transition: background .2s;
+    }
+    .q-status.on { background: var(--answered); }
+    textarea {
+      width: 100%; resize: none; overflow: hidden;
+      background: transparent; border: none;
+      border-bottom: 1px solid var(--w25);
+      color: var(--white); font-family: var(--font);
+      font-size: 14px; line-height: 1.5;
+      padding: 6px 2px 10px; min-height: 32px;
+      transition: border-color .25s;
+    }
+    textarea:focus { outline: none; border-bottom-color: var(--white); }
+    textarea::placeholder { color: var(--w40); font-style: italic; }
+
+    p.brief-closing {
+      font-size: 14px; line-height: 1.8; color: var(--w60);
+      margin-top: 40px; max-width: 640px;
+    }
+
+    /* ── FOOTER (mismo estilo del home) ── */
+    footer.site-footer {
+      position: relative; z-index: 2;
+      display: flex; flex-direction: column; gap: 6px;
+      align-items: center; text-align: center;
+      padding: 30px var(--px) 120px;
+      border-top: 1px solid var(--w15);
+    }
+    .f-email, .f-phone, .f-tagline, .f-copy {
+      font-size: 10px; letter-spacing: 0.1em; color: var(--white);
+    }
+    .f-email a, .f-phone a {
+      color: inherit; text-decoration: underline;
+      text-underline-offset: 3px; text-decoration-color: var(--w40);
+    }
+    .f-copy { opacity: 0.55; }
+
+    /* ── BARRA DE ACCIONES (fija abajo, estilo "controls" del home) ── */
+    .brief-toolbar {
+      position: fixed; bottom: 22px; left: 50%; transform: translateX(-50%);
+      z-index: 20; display: flex; gap: 10px;
+      background: rgba(0,0,0,0.7); backdrop-filter: blur(8px);
+      border: 1px solid var(--w15); border-radius: 30px;
+      padding: 8px; flex-wrap: wrap; justify-content: center;
+    }
+    .brief-toolbar button {
+      background: transparent; border: none; cursor: pointer;
+      color: var(--white); font-family: var(--font);
+      font-size: 9.5px; font-weight: 600; letter-spacing: 0.14em;
+      text-transform: uppercase; padding: 9px 16px; border-radius: 22px;
+      transition: background .2s, color .2s;
+    }
+    .brief-toolbar button:first-child { background: var(--white); color: #000; }
+    .brief-toolbar button:not(:first-child):hover { background: rgba(255,255,255,0.1); }
+    .brief-toolbar button:first-child:hover { background: var(--w60); }
+
+    @media print {
+      header.site-header, .progress-track, .progress-label, .brief-toolbar, #grain, .vignette, footer.site-footer { display: none !important; }
+      html, body { background: #fff; color: #000; }
+      h1.brief-title, .brief-meta, .brief-meta b, h2.section, .q-label, .q-num, textarea, .brief-closing { color: #000 !important; }
+      textarea { border-bottom: 1px solid #999; }
+    }
+
+    @media (max-width: 768px) {
+      :root { --px: 22px; }
+      header.site-header { padding: 16px var(--px); }
+      nav.site-nav { gap: 14px; }
+      .progress-label { top: 62px; }
+      main.brief-main { padding: 46px var(--px) 140px; }
+      .brief-toolbar { width: calc(100% - 32px); }
+      .brief-toolbar button { flex: 1; padding: 11px 8px; font-size: 9px; }
+    }
+  </style>
+</head>
+<body>
+  <canvas id="grain"></canvas>
+  <div class="vignette"></div>
+
+  <header class="site-header">
+    <div class="logo-block">
+      <a href="index.html"><img src="logo.png" alt="Mutual Media Group" /></a>
+    </div>
+    <nav class="site-nav">
+      <a href="index.html">← Sitio</a>
+      <a class="icon" href="https://www.instagram.com/juandmutual" target="_blank" rel="noopener" aria-label="Instagram">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+      </a>
+    </nav>
+  </header>
+
+  <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+  <div class="progress-label" id="progressLabel">0 / 39</div>
+
+  <main class="brief-main">
+    <h1 class="brief-title">Brief Inicial<br>Videoclip</h1>
+
+    <div class="brief-meta">
+      <b>Productora:</b> Mutual Media Group<br>
+      <b>Director de Proyecto:</b> Juan David Olmos<br>
+      <b>Productor Creativo:</b> Sebastián Neiva<br>
+      <b>Fecha de elaboración:</b> 10 de julio de 2026
+    </div>
+
+    <p class="brief-intro">
+      Antes de comenzar el desarrollo creativo, el scouting de locaciones y el plan de rodaje, necesitamos conocer a fondo su visión, la canción y las condiciones del proyecto. Este cuestionario recoge la información clave que usamos para construir una propuesta creativa que realmente refleje lo que ustedes quieren contar, evitar retrasos por falta de alineación, y planear tiempos y presupuesto de forma realista desde el primer momento. No es necesario tener todas las respuestas perfectamente definidas: entre más detalle nos compartan, más precisa será la propuesta que les presentemos.
+    </p>
+
+    <hr class="divider">
+
+    <h2 class="section">1. Datos básicos del proyecto</h2>
+    <div class="q-block" data-q="1"><div class="q-label"><span class="q-num">1.</span><span>Nombre del artista o banda:</span><span class="q-status"></span></div><textarea rows="1" placeholder="Escribe aquí..."></textarea></div>
+    <div class="q-block" data-q="2"><div class="q-label"><span class="q-num">2.</span><span>Nombre de la canción:</span><span class="q-status"></span></div><textarea rows="1" placeholder="Escribe aquí..."></textarea></div>
+    <div class="q-block" data-q="3"><div class="q-label"><span class="q-num">3.</span><span>Fecha de lanzamiento del sencillo/álbum (si ya está definida):</span><span class="q-status"></span></div><textarea rows="1" placeholder="Escribe aquí..."></textarea></div>
+    <div class="q-block" data-q="4"><div class="q-label"><span class="q-num">4.</span><span>Persona(s) de contacto para este proyecto y su rol:</span><span class="q-status"></span></div><textarea rows="1" placeholder="Escribe aquí..."></textarea></div>
+    <div class="q-block" data-q="5"><div class="q-label"><span class="q-num">5.</span><span>¿Quién tiene la aprobación final sobre el concepto y los entregables?</span><span class="q-status"></span></div><textarea rows="1" placeholder="Escribe aquí..."></textarea></div>
+
+    <h2 class="section">2. Qué quiere contar con el videoclip</h2>
+    <div class="q-block" data-q="6"><div class="q-label"><span class="q-num">6.</span><span>¿Qué historia o idea central quieren que el video comunique?</span><span class="q-status"></span></div><textarea rows="2" placeholder="Escribe aquí..."></textarea></div>
+    <div class="q-block" data-q="7"><div class="q-label"><span class="q-num">7.</span><span>¿El video debe reflejar la letra de la canción de forma literal, o puede tomar una interpretación libre?</span><span class="q-status"></span></div><textarea rows="2" placeholder="Escribe aquí..."></textarea></div>
+    <div class="q-block" data-q="8"><div class="q-label"><span class="q-num">8.</span><span>¿Hay un mensaje de marca o de posicionamiento del artista detrás de este video?</span><span class="q-status"></span></div><textarea rows="2" placeholder="Escribe aquí..."></textarea></div>
+    <div class="q-block" data-q="9"><div class="q-label"><span class="q-num">9.</span><span>¿Qué es lo primero que quieren que la audiencia piense o sienta al terminar de verlo?</span><span class="q-status"></span></div><textarea rows="2" placeholder="Escribe aquí..."></textarea></div>
+
+    <h2 class="section">3. Qué emociones debe transmitir</h2>
+    <div class="q-block" data-q="10"><div class="q-label"><span class="q-num">10.</span><span>Si tuvieran que describir la emoción del video en tres palabras, ¿cuáles serían?</span><span class="q-status"></span></div><textarea rows="1" placeholder="Escribe aquí..."></textarea></div>
+    <div class="q-block" data-q="11"><div class="q-label"><span class="q-num">11.</span><span>¿Buscan una emoción única y sostenida, o una evolución emocional a lo largo del video?</span><span class="q-status"></span></div><textarea rows="2" placeholder="Escribe aquí..."></textarea></div>
+    <div class="q-block" data-q="12"><div class="q-label"><span class="q-num">12.</span><span>¿Hay emociones que quieran evitar explícitamente (por ejemplo, nostalgia excesiva, oscuridad, comedia)?</span><span class="q-status"></span></div><textarea rows="2" placeholder="Escribe aquí..."></textarea></div>
+
+    <h2 class="section">4. Qué referencias le gustan y cuáles no</h2>
+    <div class="q-block" data-q="13"><div class="q-label"><span class="q-num">13.</span><span>Compártanos 2-3 videoclips que les gusten, y qué rescatan de cada uno (estética, ritmo, narrativa, color):</span><span class="q-status"></span></div><textarea rows="3" placeholder="Escribe aquí..."></textarea></div>
+    <div class="q-block" data-q="14"><div class="q-label"><span class="q-num">14.</span><span>¿Hay algún video o estilo que definitivamente NO quieran que el suyo se parezca?</span><span class="q-status"></span></div><textarea rows="2" placeholder="Escribe aquí..."></textarea></div>
+    <div class="q-block" data-q="15"><div class="q-label"><span class="q-num">15.</span><span>¿Tienen referencias de moodboards, fotografía o cine (no solo videoclips) que quieran compartir?</span><span class="q-status"></span></div><textarea rows="2" placeholder="Escribe aquí..."></textarea></div>
+
+    <h2 class="section">5. Qué tan narrativa o estética quiere la pieza</h2>
+    <div class="q-block" data-q="16"><div class="q-label"><span class="q-num">16.</span><span>En una escala de "100% performance del artista en cámara" a "100% historia con actores", ¿dónde ubicarían su visión?</span><span class="q-status"></span></div><textarea rows="2" placeholder="Escribe aquí..."></textarea></div>
+    <div class="q-block" data-q="17"><div class="q-label"><span class="q-num">17.</span><span>¿El artista está dispuesto/a a actuar, o prefiere un rol más de performance musical?</span><span class="q-status"></span></div><textarea rows="2" placeholder="Escribe aquí..."></textarea></div>
+    <div class="q-block" data-q="18"><div class="q-label"><span class="q-num">18.</span><span>¿Prefieren una sola locación con un concepto fuerte, o un recorrido por varias escenas/looks?</span><span class="q-status"></span></div><textarea rows="2" placeholder="Escribe aquí..."></textarea></div>
+
+    <h2 class="section">6. Qué locaciones imagina</h2>
+    <div class="q-block" data-q="19"><div class="q-label"><span class="q-num">19.</span><span>¿Tienen alguna locación específica en mente (real o imaginada)?</span><span class="q-status"></span></div><textarea rows="2" placeholder="Escribe aquí..."></textarea></div>
+    <div class="q-block" data-q="20"><div class="q-label"><span class="q-num">20.</span><span>¿Prefieren exteriores, interiores, estudio, o una combinación?</span><span class="q-status"></span></div><textarea rows="1" placeholder="Escribe aquí..."></textarea></div>
+    <div class="q-block" data-q="21"><div class="q-label"><span class="q-num">21.</span><span>¿Hay una ciudad o región donde el rodaje deba o no deba realizarse?</span><span class="q-status"></span></div><textarea rows="1" placeholder="Escribe aquí..."></textarea></div>
+    <div class="q-block" data-q="22"><div class="q-label"><span class="q-num">22.</span><span>¿Existen locaciones con significado personal para el artista que quieran incluir?</span><span class="q-status"></span></div><textarea rows="2" placeholder="Escribe aquí..."></textarea></div>
+
+    <h2 class="section">7. Qué nivel de producción espera</h2>
+    <div class="q-block" data-q="23"><div class="q-label"><span class="q-num">23.</span><span>¿Qué videoclips de otros artistas consideran como referencia del "nivel de producción" al que aspiran?</span><span class="q-status"></span></div><textarea rows="2" placeholder="Escribe aquí..."></textarea></div>
+    <div class="q-block" data-q="24"><div class="q-label"><span class="q-num">24.</span><span>¿Esperan un rodaje de un solo día, o están abiertos a una producción de varios días?</span><span class="q-status"></span></div><textarea rows="1" placeholder="Escribe aquí..."></textarea></div>
+    <div class="q-block" data-q="25"><div class="q-label"><span class="q-num">25.</span><span>¿Necesitan casting de actores, bailarines o extras?</span><span class="q-status"></span></div><textarea rows="1" placeholder="Escribe aquí..."></textarea></div>
+    <div class="q-block" data-q="26"><div class="q-label"><span class="q-num">26.</span><span>¿Contemplan efectos visuales, animación o postproducción compleja?</span><span class="q-status"></span></div><textarea rows="1" placeholder="Escribe aquí..."></textarea></div>
+
+    <h2 class="section">8. Qué elementos son indispensables</h2>
+    <div class="q-block" data-q="27"><div class="q-label"><span class="q-num">27.</span><span>¿Hay algo que el video deba incluir sí o sí (un objeto, una persona, un momento específico de la canción, una marca)?</span><span class="q-status"></span></div><textarea rows="2" placeholder="Escribe aquí..."></textarea></div>
+    <div class="q-block" data-q="28"><div class="q-label"><span class="q-num">28.</span><span>¿Existen colaboradores externos ya confirmados (coreógrafo, actor, marca patrocinadora)?</span><span class="q-status"></span></div><textarea rows="2" placeholder="Escribe aquí..."></textarea></div>
+    <div class="q-block" data-q="29"><div class="q-label"><span class="q-num">29.</span><span>¿Hay restricciones de vestuario, imagen o marca personal del artista que debamos respetar?</span><span class="q-status"></span></div><textarea rows="2" placeholder="Escribe aquí..."></textarea></div>
+
+    <h2 class="section">9. Cuál es el presupuesto real</h2>
+    <div class="q-block" data-q="30"><div class="q-label"><span class="q-num">30.</span><span>¿Cuál es el presupuesto total disponible para el proyecto completo (preproducción + producción + postproducción)?</span><span class="q-status"></span></div><textarea rows="2" placeholder="Escribe aquí..."></textarea></div>
+    <div class="q-block" data-q="31"><div class="q-label"><span class="q-num">31.</span><span>¿Ese presupuesto incluye pauta/distribución, o es exclusivamente para la producción del video?</span><span class="q-status"></span></div><textarea rows="1" placeholder="Escribe aquí..."></textarea></div>
+    <div class="q-block" data-q="32"><div class="q-label"><span class="q-num">32.</span><span>¿Hay margen de flexibilidad si el concepto creativo requiere una inversión mayor a la inicial?</span><span class="q-status"></span></div><textarea rows="1" placeholder="Escribe aquí..."></textarea></div>
+
+    <h2 class="section">10. Cuál es la fecha de entrega ideal</h2>
+    <div class="q-block" data-q="33"><div class="q-label"><span class="q-num">33.</span><span>¿Existe una fecha de lanzamiento (release) ya definida?</span><span class="q-status"></span></div><textarea rows="1" placeholder="Escribe aquí..."></textarea></div>
+    <div class="q-block" data-q="34"><div class="q-label"><span class="q-num">34.</span><span>¿Cuál es la fecha límite para tener el video terminado y aprobado?</span><span class="q-status"></span></div><textarea rows="1" placeholder="Escribe aquí..."></textarea></div>
+    <div class="q-block" data-q="35"><div class="q-label"><span class="q-num">35.</span><span>¿Necesitan entregables intermedios antes del final (teaser, clips para redes, detrás de cámaras)?</span><span class="q-status"></span></div><textarea rows="2" placeholder="Escribe aquí..."></textarea></div>
+
+    <h2 class="section">11. Qué restricciones o prioridades tiene</h2>
+    <div class="q-block" data-q="36"><div class="q-label"><span class="q-num">36.</span><span>¿Hay restricciones legales, contractuales o de derechos de autor que debamos conocer?</span><span class="q-status"></span></div><textarea rows="2" placeholder="Escribe aquí..."></textarea></div>
+    <div class="q-block" data-q="37"><div class="q-label"><span class="q-num">37.</span><span>¿Qué es lo que más les preocupa que salga mal en este proyecto?</span><span class="q-status"></span></div><textarea rows="2" placeholder="Escribe aquí..."></textarea></div>
+    <div class="q-block" data-q="38"><div class="q-label"><span class="q-num">38.</span><span>Si tuvieran que priorizar entre concepto creativo, tiempo de entrega y presupuesto, ¿en qué orden los pondrían?</span><span class="q-status"></span></div><textarea rows="2" placeholder="Escribe aquí..."></textarea></div>
+    <div class="q-block" data-q="39"><div class="q-label"><span class="q-num">39.</span><span>¿Algo más que consideren importante y que no hayamos preguntado?</span><span class="q-status"></span></div><textarea rows="2" placeholder="Escribe aquí..."></textarea></div>
+
+    <hr class="divider">
+
+    <p class="brief-closing">
+      Muchas gracias por tomarse el tiempo de responder. Con esta información, el equipo de Mutual Media Group preparará la propuesta creativa inicial para su revisión.
+    </p>
+  </main>
+
+  <footer class="site-footer">
+    <div class="f-email">Juan de Mutual &ensp;·&ensp; <a href="mailto:proyectos@mutualmediagroup.com">proyectos@mutualmediagroup.com</a></div>
+    <div class="f-tagline">PRODUCCIÓN AUDIOVISUAL Y FOTOGRAFÍA ESPECIALIZADA · BOGOTÁ, COLOMBIA</div>
+    <div class="f-phone"><a href="https://wa.me/573124116670" target="_blank" rel="noopener">+57 312 411 6670</a></div>
+    <div class="f-copy">© 2026 Mutual Media Group. Todos los derechos reservados.</div>
+  </footer>
+
+  <div class="brief-toolbar">
+    <button id="btnPdf">Guardar PDF</button>
+    <button id="btnTxt">Descargar respuestas</button>
+    <button id="btnClear">Limpiar</button>
+  </div>
+
+  <script>
+    // GRANO (mismo efecto visual que el home, más liviano por ser página larga)
+    (function initGrain() {
+      const canvas = document.getElementById('grain');
+      const ctx = canvas.getContext('2d');
+      const FPS = 6;
+      let lastTime = 0;
+      function resize() {
+        canvas.width  = Math.ceil(window.innerWidth  / 2);
+        canvas.height = Math.ceil(window.innerHeight / 2);
+        canvas.style.width  = window.innerWidth  + 'px';
+        canvas.style.height = window.innerHeight + 'px';
+      }
+      function drawGrain(ts) {
+        requestAnimationFrame(drawGrain);
+        if (ts - lastTime < 1000 / FPS) return;
+        lastTime = ts;
+        const img = ctx.createImageData(canvas.width, canvas.height);
+        const d = img.data;
+        for (let i = 0; i < d.length; i += 4) {
+          const v = (Math.random() * 255) | 0;
+          d[i] = d[i+1] = d[i+2] = v; d[i+3] = 255;
+        }
+        ctx.putImageData(img, 0, 0);
+      }
+      window.addEventListener('resize', resize);
+      resize();
+      requestAnimationFrame(drawGrain);
+    })();
+
+    // FORMULARIO
+    const STORAGE_KEY = 'mmg_brief_videoclip';
+    const blocks = Array.from(document.querySelectorAll('.q-block'));
+    const total = blocks.length;
+
+    function autosize(el){ el.style.height='auto'; el.style.height=(el.scrollHeight)+'px'; }
+
+    function load(){
+      let saved = {};
+      try{ saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}'); }catch(e){}
+      blocks.forEach(b=>{
+        const ta = b.querySelector('textarea');
+        if(saved[b.dataset.q]) ta.value = saved[b.dataset.q];
+        autosize(ta);
+      });
+      updateProgress();
+    }
+    function save(){
+      const data = {};
+      blocks.forEach(b=>{ data[b.dataset.q] = b.querySelector('textarea').value; });
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    }
+    function updateProgress(){
+      let answered = 0;
+      blocks.forEach(b=>{
+        const ta = b.querySelector('textarea');
+        const dot = b.querySelector('.q-status');
+        const has = ta.value.trim().length > 0;
+        dot.classList.toggle('on', has);
+        if(has) answered++;
+      });
+      document.getElementById('progressLabel').textContent = answered + ' / ' + total;
+      document.getElementById('progressFill').style.width = Math.round((answered/total)*100) + '%';
+    }
+    blocks.forEach(b=>{
+      const ta = b.querySelector('textarea');
+      ta.addEventListener('input', ()=>{ autosize(ta); updateProgress(); save(); });
+    });
+
+    document.getElementById('btnPdf').addEventListener('click', ()=> window.print());
+
+    document.getElementById('btnTxt').addEventListener('click', ()=>{
+      let out = 'BRIEF INICIAL VIDEOCLIP\nMutual Media Group\n';
+      out += 'Director de Proyecto: Juan David Olmos\nProductor Creativo: Sebastián Neiva\n\n';
+      document.querySelectorAll('.section, .q-block').forEach(node=>{
+        if(node.classList.contains('section')){
+          out += '\n' + node.textContent.trim().replace(/\s+/g,' ') + '\n';
+        } else {
+          const num = node.querySelector('.q-num').textContent.trim();
+          const question = node.querySelector('.q-label span:nth-child(2)').textContent.trim();
+          const answer = node.querySelector('textarea').value.trim() || '(sin responder)';
+          out += num + ' ' + question + '\n   -> ' + answer + '\n';
+        }
+      });
+      const blob = new Blob([out], { type: 'text/plain;charset=utf-8' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'Brief_Videoclip_Respuestas.txt';
+      a.click();
+    });
+
+    document.getElementById('btnClear').addEventListener('click', ()=>{
+      if(confirm('¿Borrar todas las respuestas?')){
+        localStorage.removeItem(STORAGE_KEY);
+        blocks.forEach(b=>{ const ta=b.querySelector('textarea'); ta.value=''; autosize(ta); });
+        updateProgress();
+      }
+    });
+
+    load();
+  </script>
+</body>
+</html>
