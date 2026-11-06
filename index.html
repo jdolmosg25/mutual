@@ -3,23 +3,22 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Mutual Media Group — Productora Audiovisual y Fotografía · Bogotá</title>
-  <meta name="description" content="Productora audiovisual y fotografía especializada en Bogotá, Colombia. Proyectos visuales con criterio de autor. Juan de Mutual." />
-  <meta name="keywords" content="productora audiovisual, fotografía, Bogotá, Colombia, Juan de Mutual, Mutual Media Group, video, foto, producción" />
-  <meta name="author" content="Juan de Mutual — Mutual Media Group" />
+  <title>Mutual Media Group | Productora Documental</title>
+  <meta name="description" content="Productora audiovisual especializada en documental. Video y fotografía para empresas y organizaciones. Bogotá, Colombia." />
+  <meta name="author" content="Mutual Media Group" />
   <link rel="canonical" href="https://www.mutualmediagroup.com/" />
   <meta property="og:type"         content="website" />
   <meta property="og:url"          content="https://www.mutualmediagroup.com/" />
-  <meta property="og:title"        content="Mutual Media Group — Productora Audiovisual y Fotografía" />
-  <meta property="og:description"  content="Productora audiovisual y fotografía especializada en Bogotá, Colombia. Proyectos visuales con criterio de autor. Juan de Mutual." />
+  <meta property="og:title"        content="Mutual Media Group | Productora Documental" />
+  <meta property="og:description"  content="Productora audiovisual especializada en documental. Video y fotografía para empresas y organizaciones. Bogotá, Colombia." />
   <meta property="og:image"        content="https://www.mutualmediagroup.com/og-image.jpg" />
   <meta property="og:image:width"  content="1200" />
   <meta property="og:image:height" content="630" />
   <meta property="og:locale"       content="es_CO" />
   <meta property="og:site_name"    content="Mutual Media Group" />
   <meta name="twitter:card"        content="summary_large_image" />
-  <meta name="twitter:title"       content="Mutual Media Group — Productora Audiovisual y Fotografía" />
-  <meta name="twitter:description" content="Productora audiovisual y fotografía especializada en Bogotá, Colombia. Juan de Mutual." />
+  <meta name="twitter:title"       content="Mutual Media Group | Productora Documental" />
+  <meta name="twitter:description" content="Productora audiovisual especializada en documental. Video y fotografía para empresas y organizaciones. Bogotá, Colombia." />
   <meta name="twitter:image"       content="https://www.mutualmediagroup.com/og-image.jpg" />
   <link rel="preconnect" href="https://fonts.bunny.net">
   <link href="https://fonts.bunny.net/css?family=montserrat:400,500,700,800&display=swap" rel="stylesheet" />
@@ -179,9 +178,16 @@
       font-weight: 400; letter-spacing: 0.12em;
       color: var(--white); text-align: center;
     }
-    .f-tagline .f-line1::after { content: ' · '; }
     .f-tagline .f-line1,
-    .f-tagline .f-line2 { display: inline; white-space: nowrap; }
+    .f-tagline .f-line2 { display: block; white-space: nowrap; }
+    .f-tagline .f-line2 { margin-top: 4px; opacity: 0.75; letter-spacing: 0.06em; }
+
+    /* Título solo para buscadores y lectores de pantalla (no se ve) */
+    .sr-only {
+      position: absolute; width: 1px; height: 1px;
+      padding: 0; margin: -1px; overflow: hidden;
+      clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+    }
 
     .f-copy {
       grid-column: 2;
@@ -194,7 +200,7 @@
 
     /* ── CONTROLES ── */
     .controls {
-      position: fixed; bottom: 68px; left: 50%;
+      position: fixed; bottom: 80px; left: 50%;
       transform: translateX(-50%); z-index: 20;
       display: flex; align-items: center; gap: 16px; pointer-events: auto;
     }
@@ -218,7 +224,7 @@
 
     /* ── CTA WHATSAPP ── */
     .cta-wa {
-      position: fixed; bottom: 68px; right: var(--px); z-index: 20;
+      position: fixed; bottom: 80px; right: var(--px); z-index: 20;
       display: flex; align-items: center; gap: 8px;
       color: var(--white); text-decoration: none;
       font-family: var(--font); font-size: 10px; font-weight: 500;
@@ -243,7 +249,6 @@
       }
       .f-email   { font-size: 9px; order: 1; }
       .f-tagline { font-size: 8px; text-align: left; order: 2; }
-      .f-tagline .f-line1::after { content: ''; }
       .f-tagline .f-line1,
       .f-tagline .f-line2 { display: block; white-space: normal; }
       .f-phone   { display: block; text-align: left; font-size: 9px; order: 3; }
@@ -284,367 +289,4 @@
         <img src="logo.png" alt="Mutual Media Group" />
       </div>
       <nav>
-        <a href="https://www.behance.net/juandmutual" target="_blank" rel="noopener" aria-label="Behance">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.969 16.927a2.561 2.561 0 0 0 1.901.677 2.501 2.501 0 0 0 1.531-.475c.362-.235.636-.584.779-.99h2.585a5.091 5.091 0 0 1-1.9 2.896 5.292 5.292 0 0 1-3.091.88 5.839 5.839 0 0 1-2.284-.433 4.871 4.871 0 0 1-1.723-1.211 5.657 5.657 0 0 1-1.08-1.874 7.057 7.057 0 0 1-.383-2.393c-.005-.8.129-1.595.396-2.349a5.313 5.313 0 0 1 5.088-3.604 4.87 4.87 0 0 1 2.376.563c.661.362 1.231.87 1.668 1.485a6.2 6.2 0 0 1 .943 2.133c.194.821.263 1.666.205 2.508h-7.699c-.063.79.184 1.574.688 2.187ZM6.947 4.084a8.065 8.065 0 0 1 1.928.198 4.29 4.29 0 0 1 1.49.638c.418.303.748.711.958 1.182.241.579.357 1.203.341 1.83a3.506 3.506 0 0 1-.506 1.961 3.726 3.726 0 0 1-1.503 1.287 3.588 3.588 0 0 1 2.027 1.437c.464.747.697 1.615.67 2.494a4.593 4.593 0 0 1-.423 2.032 3.945 3.945 0 0 1-1.163 1.413 5.114 5.114 0 0 1-1.683.807 7.135 7.135 0 0 1-1.928.259H0V4.084h6.947Zm-.235 12.9c.308.004.616-.029.916-.099a2.18 2.18 0 0 0 .766-.332c.228-.158.411-.371.534-.619.142-.317.208-.663.191-1.009a2.08 2.08 0 0 0-.642-1.715 2.618 2.618 0 0 0-1.696-.505h-3.54v4.279h3.471Zm13.635-5.967a2.13 2.13 0 0 0-1.654-.619 2.336 2.336 0 0 0-1.163.259 2.474 2.474 0 0 0-.738.62 2.359 2.359 0 0 0-.396.792c-.074.239-.12.485-.137.734h4.769a3.239 3.239 0 0 0-.679-1.785l-.002-.001Zm-13.813-.648a2.254 2.254 0 0 0 1.423-.433c.399-.355.607-.88.56-1.413a1.916 1.916 0 0 0-.178-.891 1.298 1.298 0 0 0-.495-.533 1.851 1.851 0 0 0-.711-.274 3.966 3.966 0 0 0-.835-.073H3.241v3.631h3.293v-.014ZM21.62 5.122h-5.976v1.527h5.976V5.122Z"/></svg>
-        </a>
-        <a href="https://www.vimeo.com/juandmutual" target="_blank" rel="noopener" aria-label="Vimeo">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.977 6.416c-.105 2.338-1.739 5.543-4.894 9.609-3.268 4.247-6.026 6.37-8.29 6.37-1.409 0-2.578-1.294-3.553-3.881L5.322 11.4C4.603 8.816 3.834 7.522 3.01 7.522c-.179 0-.806.378-1.881 1.132L0 7.197c1.185-1.044 2.351-2.084 3.501-3.128C5.08 2.701 6.266 1.984 7.055 1.91c1.867-.18 3.016 1.1 3.447 3.838.465 2.953.789 4.789.971 5.507.539 2.45 1.131 3.674 1.776 3.674.502 0 1.256-.796 2.265-2.385 1.004-1.589 1.54-2.797 1.612-3.628.144-1.371-.395-2.061-1.212-2.061-.43 0-.872.099-1.32.299 1.093-3.591 3.176-5.34 6.245-5.25 2.278.066 3.354 1.543 3.138 4.512z"/></svg>
-        </a>
-        <a href="https://www.instagram.com/juandmutual" target="_blank" rel="noopener" aria-label="Instagram">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
-        </a>
-      </nav>
-    </header>
-
-    <div class="hero-text"></div>
-
-    <footer>
-      <div class="f-email">
-        Juan de Mutual &ensp;·&ensp; <a href="mailto:proyectos@mutualmediagroup.com">proyectos@mutualmediagroup.com</a>
-      </div>
-      <div class="f-tagline">
-        <span class="f-line1">PRODUCCION AUDIOVISUAL Y FOTOGRAFIA ESPECIALIZADA</span>
-        <span class="f-line2">BOGOTA, COLOMBIA</span>
-      </div>
-      <div class="f-phone">
-        <a href="https://wa.me/573124116670" target="_blank" rel="noopener">+57 312 411 6670</a>
-      </div>
-      <div class="f-copy">© 2026 Mutual Media Group. Todos los derechos reservados.</div>
-    </footer>
-  </div>
-
-  <a class="cta-wa" href="https://wa.me/573124116670" target="_blank" rel="noopener" aria-label="Contactar por WhatsApp">Hablemos</a>
-
-  <div class="controls">
-    <button class="ctrl" id="prevBtn" aria-label="Foto anterior">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
-    </button>
-    <div class="dots" id="dots"></div>
-    <button class="ctrl" id="pauseBtn" aria-label="Pausar">
-      <svg id="iconPause" viewBox="0 0 24 24" fill="currentColor">
-        <rect x="6"  y="4" width="4" height="16" rx="1"/>
-        <rect x="14" y="4" width="4" height="16" rx="1"/>
-      </svg>
-      <svg id="iconPlay" viewBox="0 0 24 24" fill="currentColor" style="display:none">
-        <path d="M8 5.14v14l11-7-11-7z"/>
-      </svg>
-    </button>
-    <button class="ctrl" id="nextBtn" aria-label="Foto siguiente">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
-    </button>
-  </div>
-
-  <script>
-    // IMÁGENES — agregar o quitar fotos aquí
-    // link: URL a Behance, Vimeo, Pixieset, etc. — null si no tiene link
-    function shuffle(arr) {
-      for (let i = arr.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [arr[i], arr[j]] = [arr[j], arr[i]];
-      }
-      return arr;
-    }
-
-    const desktopSlides = shuffle([
-      { img: 'mutual01.jpg',   link: 'https://juandemutual.pixieset.com/' },
-      { img: 'mutual02v2.jpg',   link: 'https://juandemutual.pixieset.com/darmanddizeemills/' },
-      { img: 'mutual05.jpg',   link: 'https://juandemutual.pixieset.com/' },
-      { img: 'mutual08v2.jpg',   link: 'https://juandemutual.pixieset.com/bogavante/' },
-      { img: 'mutual09.jpg',   link: 'https://juandemutual.pixieset.com/lakasta/' },
-      { img: 'mutual10v2.jpg',   link: 'https://juandemutual.pixieset.com/' },
-      { img: 'mutual11v3.jpg',   link: 'https://juandemutual.pixieset.com/' },
-      { img: 'mutual13.jpg',   link: 'https://juandemutual.pixieset.com/' },
-      { img: 'mutual14.jpg',   link: 'https://juandemutual.pixieset.com/conciertodelasierra/' },
-      { img: 'mutual15v2.jpg',   link: 'https://juandemutual.pixieset.com/' },
-    ]);
-
-    const mobileSlides = shuffle([
-      { img: 'mutual03mv2.jpg',   link: 'https://juandemutual.pixieset.com/' },
-      { img: 'mutual02mv2.jpg',   link: 'https://juandemutual.pixieset.com/darmanddizeemills/' },
-      { img: 'mutual05mv2.jpg',   link: 'https://juandemutual.pixieset.com/' },
-      { img: 'mutual12m2.jpg',   link: 'https://juandemutual.pixieset.com/lakasta/' },
-      { img: 'mutual11m.jpg',   link: 'https://juandemutual.pixieset.com/lakasta/' },
-      { img: 'mutual06mv2.jpg',   link: 'https://juandemutual.pixieset.com/' },
-      { img: 'mutual07mv4.jpg',   link: 'https://juandemutual.pixieset.com/' },
-      { img: 'mutual08m.jpg',   link: 'https://juandemutual.pixieset.com/' },
-      { img: 'mutual04mv2.jpg',   link: 'https://juandemutual.pixieset.com/feidferxxocalipsisbogota/' },
-      { img: 'mutual10m.jpg',   link: 'https://juandemutual.pixieset.com/' },
-    ]);
-
-    const desktopImages = desktopSlides.map(s => s.img);
-    const mobileImages  = mobileSlides.map(s => s.img);
-    const desktopLinks  = desktopSlides.map(s => s.link);
-    const mobileLinks   = mobileSlides.map(s => s.link);
-
-    // CONFIG
-    const DURATION     = 5000;
-    const FADE_MS      = 400;
-    const PARALLAX_PX  = 18;
-    const GLITCH_SHIFT = 10;
-
-    let current       = 0;
-    let isPaused      = false;
-    let isTransition  = false;
-    let timer         = null;
-    let isMobile      = window.innerWidth <= 768;
-    let isPointerFine = window.matchMedia('(pointer: fine)').matches;
-
-    function getImages() { return isMobile ? mobileImages : desktopImages; }
-    function getLinks()  { return isMobile ? mobileLinks  : desktopLinks;  }
-
-    const slideshowEl   = document.getElementById('slideshow');
-    const fadeOverlay   = document.getElementById('fadeOverlay');
-    const glitchOverlay = document.getElementById('glitchOverlay');
-    const dotsEl        = document.getElementById('dots');
-
-    const maxSlides = Math.max(desktopImages.length, mobileImages.length);
-    const slides = Array.from({ length: maxSlides }, () => {
-      const el = document.createElement('div');
-      el.className = 'slide';
-      slideshowEl.appendChild(el);
-      return el;
-    });
-
-    let dots = [];
-    function buildDots() {
-      dotsEl.innerHTML = '';
-      dots = getImages().map((_, i) => {
-        const btn = document.createElement('button');
-        btn.className = 'dot' + (i === 0 ? ' active' : '');
-        btn.setAttribute('aria-label', `Foto ${i + 1}`);
-        btn.addEventListener('click', () => goTo(i));
-        dotsEl.appendChild(btn);
-        return btn;
-      });
-    }
-
-    function rebuildSlides() {
-      const imgs = getImages();
-      slides.forEach((el, i) => {
-        if (i < imgs.length) {
-          el.style.backgroundImage = `url('${imgs[i]}')`;
-          el.style.display = '';
-        } else {
-          el.classList.remove('active');
-          el.style.opacity = '0';
-          el.style.display = 'none';
-        }
-      });
-      if (current >= imgs.length) current = 0;
-      slides.forEach((el, i) => {
-        if (el.style.display !== 'none') {
-          el.classList.toggle('active', i === current);
-        }
-      });
-    }
-
-    [...desktopImages, ...mobileImages].forEach(src => {
-      const img = new Image(); img.src = src;
-    });
-
-    // GRAIN
-    (function initGrain() {
-      const canvas = document.getElementById('grain');
-      if (!canvas) return;
-      const ctx = canvas.getContext('2d');
-      const FPS = 8;
-      let lastTime = 0;
-      function resize() {
-        canvas.width  = Math.ceil(window.innerWidth  / 2);
-        canvas.height = Math.ceil(window.innerHeight / 2);
-        canvas.style.width  = window.innerWidth  + 'px';
-        canvas.style.height = window.innerHeight + 'px';
-      }
-      function drawGrain(ts) {
-        requestAnimationFrame(drawGrain);
-        if (ts - lastTime < 1000 / FPS) return;
-        lastTime = ts;
-        const img = ctx.createImageData(canvas.width, canvas.height);
-        const d = img.data;
-        for (let i = 0; i < d.length; i += 4) {
-          const v = (Math.random() * 255) | 0;
-          d[i] = d[i+1] = d[i+2] = v; d[i+3] = 255;
-        }
-        ctx.putImageData(img, 0, 0);
-      }
-      window.addEventListener('resize', resize);
-      resize();
-      requestAnimationFrame(drawGrain);
-    })();
-
-    // GLITCH
-    function triggerGlitch() {
-      return new Promise(resolve => {
-        const overlay     = glitchOverlay;
-        const activeSlide = slides[current];
-        let frame = 0;
-        const FRAMES = 8;
-        const originalTransform = activeSlide.style.transform || '';
-        function glitchStep() {
-          if (frame >= FRAMES) {
-            overlay.style.opacity       = '0';
-            overlay.style.background    = 'transparent';
-            activeSlide.style.transform = originalTransform;
-            activeSlide.style.filter    = 'none';
-            resolve(); return;
-          }
-          const dx     = (Math.random() - 0.5) * GLITCH_SHIFT * 2;
-          const rShift = (Math.random() - 0.5) * GLITCH_SHIFT;
-          const bShift = (Math.random() - 0.5) * GLITCH_SHIFT;
-          activeSlide.style.transform = `translateX(${dx}px)`;
-          activeSlide.style.filter =
-            `drop-shadow(${rShift}px 0 0 rgba(255,0,0,0.6))
-             drop-shadow(${-bShift}px 0 0 rgba(0,150,255,0.6))`;
-          if (frame === 0) {
-            overlay.style.background = 'rgba(255,255,255,0.18)';
-            overlay.style.opacity    = '1';
-          } else if (frame === 2) {
-            overlay.style.opacity = '0';
-          }
-          frame++;
-          requestAnimationFrame(glitchStep);
-        }
-        requestAnimationFrame(glitchStep);
-      });
-    }
-
-    // PARALLAX
-    let mouseX = 0.5, mouseY = 0.5;
-    let rafParallax = null;
-
-    function applyParallax() {
-      const slide = slides[current];
-      if (!slide) return;
-      const x = 50 + (mouseX - 0.5) * PARALLAX_PX * -1;
-      const y = 50 + (mouseY - 0.5) * PARALLAX_PX * -1;
-      slide.style.backgroundPosition = `${x.toFixed(2)}% ${y.toFixed(2)}%`;
-    }
-
-    if (isPointerFine && !isMobile) {
-      document.addEventListener('mousemove', e => {
-        mouseX = e.clientX / window.innerWidth;
-        mouseY = e.clientY / window.innerHeight;
-        cancelAnimationFrame(rafParallax);
-        rafParallax = requestAnimationFrame(applyParallax);
-      });
-    }
-
-    function resetParallax(slideEl) {
-      slideEl.style.backgroundPosition = '50% 50%';
-    }
-
-    // CURSOR EN FOTO CON LINK
-    function updateSlideCursor() {
-      const link = getLinks()[current];
-      if (isPointerFine) {
-        cursorEl.classList.toggle('link', !!link);
-      }
-    }
-
-    slideshowEl.addEventListener('click', () => {
-      if (isTransition) return;
-      if (isMobile && wasSwiping) return;
-      const link = getLinks()[current];
-      if (link) window.open(link, '_blank', 'noopener');
-    });
-
-    // TRANSICIÓN
-    async function goTo(index) {
-      if (isTransition) return;
-      const imgs = getImages();
-      const next = ((index % imgs.length) + imgs.length) % imgs.length;
-      if (next === current) return;
-      isTransition = true;
-      clearTimeout(timer);
-      if (isPointerFine && !isMobile) await triggerGlitch();
-      fadeOverlay.classList.add('on');
-      await wait(FADE_MS);
-      resetParallax(slides[current]);
-      slides[current].classList.remove('active');
-      if (dots[current]) dots[current].classList.remove('active');
-      current = next;
-      slides[current].classList.add('active');
-      if (dots[current]) dots[current].classList.add('active');
-      if (isPointerFine && !isMobile) applyParallax();
-      updateSlideCursor();
-      fadeOverlay.classList.remove('on');
-      await wait(FADE_MS);
-      isTransition = false;
-      if (!isPaused) startTimer();
-    }
-
-    function wait(ms) { return new Promise(r => setTimeout(r, ms)); }
-    const nextSlide = () => goTo(current + 1);
-    const prevSlide = () => goTo(current - 1);
-
-    function startTimer() {
-      clearTimeout(timer);
-      timer = setTimeout(nextSlide, DURATION);
-    }
-
-    // CONTROLES
-    const iconPause = document.getElementById('iconPause');
-    const iconPlay  = document.getElementById('iconPlay');
-
-    function togglePause() {
-      isPaused = !isPaused;
-      iconPause.style.display = isPaused ? 'none'  : 'block';
-      iconPlay.style.display  = isPaused ? 'block' : 'none';
-      isPaused ? clearTimeout(timer) : startTimer();
-    }
-
-    document.getElementById('prevBtn').addEventListener('click', prevSlide);
-    document.getElementById('nextBtn').addEventListener('click', nextSlide);
-    document.getElementById('pauseBtn').addEventListener('click', togglePause);
-
-    document.addEventListener('keydown', e => {
-      if (e.key === 'ArrowRight') nextSlide();
-      if (e.key === 'ArrowLeft')  prevSlide();
-      if (e.key === ' ') { e.preventDefault(); togglePause(); }
-    });
-
-    let touchX = 0, touchY = 0, wasSwiping = false;
-    document.addEventListener('touchstart', e => {
-      touchX = e.touches[0].clientX;
-      touchY = e.touches[0].clientY;
-      wasSwiping = false;
-    }, { passive: true });
-    document.addEventListener('touchend', e => {
-      const dx = e.changedTouches[0].clientX - touchX;
-      const dy = e.changedTouches[0].clientY - touchY;
-      if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 45) {
-        wasSwiping = true;
-        dx < 0 ? nextSlide() : prevSlide();
-      }
-    }, { passive: true });
-
-    // CURSOR
-    const cursorEl = document.getElementById('cursor');
-    if (isPointerFine) {
-      document.addEventListener('mousemove', e => {
-        cursorEl.style.left = e.clientX + 'px';
-        cursorEl.style.top  = e.clientY + 'px';
-      });
-      document.querySelectorAll('a, button, .dot').forEach(el => {
-        el.addEventListener('mouseenter', () => cursorEl.classList.add('big'));
-        el.addEventListener('mouseleave', () => cursorEl.classList.remove('big'));
-      });
-    }
-
-    window.addEventListener('resize', () => {
-      const wasMobile = isMobile;
-      isMobile = window.innerWidth <= 768;
-      if (wasMobile !== isMobile) {
-        current = 0;
-        rebuildSlides();
-        buildDots();
-      }
-    });
-
-    rebuildSlides();
-    buildDots();
-    updateSlideCursor();
-    startTimer();
-  </script>
-</body>
-</html>
+        <a href="https://www.behance.net/juandmutual" target="_blank"
